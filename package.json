@@ -1,0 +1,27 @@
+{
+  "name": "travel-share",
+  "version": "1.0.0",
+  "description": "Document your travels and share with others.",
+  "main": "server.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivanmanan/Travel-Share.git"
+  },
+  "author": "Ivan Manan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivanmanan/Travel-Share/issues"
+  },
+  "homepage": "https://github.com/ivanmanan/Travel-Share#readme",
+  "dependencies": {
+    "concurrently": "^3.5.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  }
+}
