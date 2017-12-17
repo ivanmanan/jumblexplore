@@ -9,28 +9,45 @@ body {
     height: 100%;
     font-size: 100%;
 }
+
 /* Entire Top Panel */
 .Panel {
     background-color: lightsteelblue;
+    box-shadow: 0 0 3px 3px darkslategray;
 }
 
-/* Fixed */
-
+/* Navigation */
+.Title h1 {
+    font-size: 4vw;
+    margin-bottom: 2vw;
+    text-shadow: 1px 1px gray;
+}
 #home {
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 30%;
+    max-height: 30%;
     width: auto;
     height: auto;
 }
-
 #home:hover {
     background-color: silver;
     cursor: pointer;
 }
+#searchBar {
+    margin-bottom: 1.5vw;
+    width: 90%;
+    padding: 0.5vw 0.5vw;
+    box-sizing: border-box;
+    border: 0.1vw solid darkgray;
+    font-size: 1vw;
+}
 
-
-/* Dynamic */
-
+/* View */
+.View {
+    margin-top: 3vw;
+}
+.View h2 {
+    font-size: 6vw;
+}
 
 /* Maps */
 .Maps { }

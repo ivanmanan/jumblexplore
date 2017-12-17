@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import Fixed from './Fixed';
-import Dynamic from './Dynamic';
+import Navigation from './Navigation';
+import View from './View';
 
 // Initial component must be a login screen
 
 class App extends Component {
 
-  // Constructor to pass props to Fixed, Dynamic, and Maps components
+  // Constructor to pass props to Navigation, View, and Maps components
   constructor(props) {
     super(props);
     this.state = {
+      view: "login",
       username: '',
       userSearched: ''
     };
@@ -24,14 +25,14 @@ class App extends Component {
             col-md-4
             col-sm-5
             col-xs-5">
-            <Fixed/>
+            <Navigation/>
           </div>
 
           <div className="
             col-md-8
             col-sm-7
             col-xs-7">
-            <Dynamic/>
+            <View viewSelection={this.state.view}/>
           </div>
         </div>
 
