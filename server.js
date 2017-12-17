@@ -10,8 +10,6 @@ const app = express();
 // Configurations
 
 // Set view engine to HTML
-// app.engine('html', require('ejs').renderFile);
-// app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
 // Set port
@@ -22,6 +20,7 @@ var port = process.env.PORT || 3001;
 var mysql = require('mysql');
 config = require("./config");
 db = config.database;
+
 var connection = mysql.createConnection({
   host: db.host,
   user: db.user,
