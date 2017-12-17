@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 import View from './View';
+import Maps from './Maps';
 
 // Initial component must be a login screen
 
@@ -14,6 +15,18 @@ class App extends Component {
       username: '',
       userSearched: ''
     };
+
+    this.handleUserSearch = this.handleUserSearch.bind(this);
+  }
+
+  // Render possible usernames
+  // This will be sent to backend for SQL query
+  handleUserSearch(inputText) {
+    this.setState({
+      userSearched: inputText
+    },() => {
+      console.log("Searching for " + this.state.userSearched);
+    });
   }
 
   render() {
@@ -25,7 +38,7 @@ class App extends Component {
             col-md-4
             col-sm-5
             col-xs-5">
-            <Navigation/>
+            <Navigation handleUserSearch={this.handleUserSearch}/>
           </div>
 
           <div className="
@@ -36,12 +49,12 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="Maps row">
-          <div className="Map
+        <div className="Maps-container row">
+          <div className="Maps-container
             col-md-12
             col-sm-12
             col-xs-12">
-            <h1>Map</h1>
+            <Maps/>
           </div>
         </div>
 

@@ -10,14 +10,14 @@ class Navigation extends Component {
   // Handle user search
   handleSubmit(e) {
     e.preventDefault();
-    console.log("Searching for " + this.refs.userSearch.value);
+    this.props.handleUserSearch(this.refs.userSearch.value);
   }
 
-    // on click of home icon show profile setting
+  // on click of home icon show profile setting
 
 
 
-    render() {
+  render() {
     return (
       <div className="Navigation">
         <div className="Title row">

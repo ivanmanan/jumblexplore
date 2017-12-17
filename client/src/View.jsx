@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Login from './Login';
 
 class View extends Component {
 
@@ -16,7 +16,7 @@ class View extends Component {
       case "login":
       default:
         return (
-          <h2>Render login here.</h2>
+          <Login/>
         );
     }
   }
