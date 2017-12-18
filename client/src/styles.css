@@ -16,8 +16,8 @@ body {
 .Panel {
     background-color: lightsteelblue;
     box-shadow: 0 0 3px 3px darkslategray;
-    padding-bottom: 4vh;
-    padding-top: 4vh;
+    padding-bottom: 2.5vh;
+    padding-top: 2vh;
 }
 
 /* Navigation */
@@ -47,12 +47,37 @@ body {
 }
 
 /* View */
-.View {
-    margin-top: 3vw;
+
+/* View - Login */
+.login-row h2 {
+    font-size: calc(4px + 3vw);
 }
-.View h2 {
-    font-size: 6vw;
+.login-row input {
+    margin-top: 1.8vw;
+    width: 100%;
+    padding: 0.5vw 0.5vw;
+    font-size: calc(6px + 1vw);
+    border: 0.1vw solid darkgray;
 }
+.login-button-container {
+    margin-top: calc(10px + 1vw);
+}
+.login-button {
+    width: calc(95%);
+    height: 3.5vw;
+    background-color: ivory;
+    border-radius: 4px;
+    border: 2px solid darkgray;
+}
+.login-button p {
+    font-size: calc(2vw);
+}
+
+/* View - Profile */
+
+
+/* View - Photos */
+
 
 /* Maps */
 .Maps-container {
@@ -61,8 +86,9 @@ body {
     width: 100%;
     height: 100%;
 }
+/* Adjust area of the map */
 .leaflet-container {
-    height: 85%;
+    height: 55%;
     width: 101.5%;
     margin: 3px ;
     margin-left: 0.1vw;

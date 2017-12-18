@@ -1,6 +1,12 @@
-INSERT INTO Places (Place, Country, State, City, Street)
-VALUES ("Fingals Cave", "Scotland", "Isle of Staffa", NULL, NULL);
+INSERT INTO Places (Place, Longitude, Latitude, Country, State, City)
+VALUES ("Fingals Cave", -6.3414, 56.4314, "Scotland", "Isle of Staffa",
+        NULL);
 
-INSERT INTO UserLogin (Username, User_Places_ID)
-VALUES ("Ivan", 1);
+INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record)
+VALUES (1, 1, "August 15 2016");
 
+INSERT INTO UserLogin (Username, Password, User_Places_ID)
+VALUES ("Ivan", "password", 1);
+
+INSERT INTO UserLogin (Username, Password, User_Places_ID)
+VALUES ("NewAccount", "password", NULL);
