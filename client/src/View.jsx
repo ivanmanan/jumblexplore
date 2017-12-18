@@ -11,7 +11,7 @@ class View extends Component {
         return (
           <Profile logout={this.props.logout} username={this.props.username}/>
         );
-      case "photos":
+      case "album":
         return (
           <Album logout={this.props.logout} username={this.props.username}/>
         );
