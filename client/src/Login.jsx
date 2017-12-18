@@ -31,7 +31,9 @@ class Login extends Component {
 
         // If login was successful
         if (this.state.userLogin[0]) {
-          console.log("Successful login!");
+          sessionStorage.setItem('loggedIn', true);
+          sessionStorage.setItem('username', this.state.userLogin[0].username);
+          sessionStorage.setItem('user_id', this.state.userLogin[0].user_id);
           this.props.login();
         }
         else { // If login failed

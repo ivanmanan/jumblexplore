@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
+import Profile from './Profile';
+import Album from './Album';
 
 class View extends Component {
 
@@ -7,11 +9,11 @@ class View extends Component {
     switch(this.props.viewSelection) {
       case "profile":
         return (
-          <h2>Render profile here.</h2>
+          <Profile logout={this.props.logout} username={this.props.username}/>
         );
       case "photos":
         return (
-          <h2>Render user's photos here.</h2>
+          <Album logout={this.props.logout} username={this.props.username}/>
         );
       case "login":
       default:

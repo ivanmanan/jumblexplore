@@ -11,25 +11,55 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "login",
-      loggedIn: sessionStorage.getItem('loggedIn'),
-      username: '',
+      view: '',
+      loggedIn: false,
+      username: sessionStorage.getItem('username'),
+      user_id: sessionStorage.getItem('user_id'),
       userSearched: ''
     };
-
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
     this.handleUserSearch = this.handleUserSearch.bind(this);
   }
 
-  login() {
-    this.setState({
-      loggedIn: true
-    });
-    sessionStorage.setItem('loggedIn', true);
+  componentDidMount() {
+    // If logged in, render profile component
+    if (sessionStorage.getItem('loggedIn')) {
+      this.setState({
+        view: "profile",
+        loggedIn: true
+      });
+    }
+    else { // Otherwise, render login component
+      this.setState({
+        view: "view",
+        loggedIn: false
+      });
+    }
 
   }
 
+  // Parent callback --> View.jsx --> Login.jsx
+  login() {
+    this.setState({
+      view: "profile",
+      loggedIn: sessionStorage.getItem('loggedIn'),
+      username: sessionStorage.getItem('username'),
+      user_id: sessionStorage.getItem('user_id')
+    });
+  }
 
+  // Parent callback --> View.jsx --> Photos.jsx, Profile.jsx
+  logout() {
+    this.setState({
+      view: 'login',
+      loggedIn: false
+    })
+    sessionStorage.setItem('loggedIn', false);
+    sessionStorage.setItem('username', '');
+    sessionStorage.setItem('user_id', 0);
+    sessionStorage.clear();
+  }
 
 
   // Render possible usernames
@@ -51,14 +81,17 @@ class App extends Component {
             col-md-4
             col-sm-5
             col-xs-5">
-            <Navigation handleUserSearch={this.handleUserSearch}/>
+            <Navigation handleUserSearch={this.handleUserSearch}
+                        loggedIn={this.state.loggedIn}/>
           </div>
 
           <div className="
             col-md-8
             col-sm-7
             col-xs-7">
-            <View viewSelection={this.state.view} login={this.login}/>
+            <View viewSelection={this.state.view} loggedIn={this.state.loggedIn}
+                  login={this.login} logout={this.logout}
+                  username={this.state.username}/>
           </div>
         </div>
 
