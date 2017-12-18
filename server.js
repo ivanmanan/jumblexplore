@@ -48,7 +48,8 @@ app.post('/login', (req, res) => {
 
   console.log("Running query...");
   var userinfo = [];
-  // Prevent SQL injection here, then throw error
+  // Prevent SQL injection here, then do res.send with empty userinfo as flag
+  // and return from this function and do not execute query
   // Login.jsx catches the error, and renders the error message
   // This same SQL injection check must be made for registration
   // I need to unhash passwords here
@@ -62,12 +63,9 @@ app.post('/login', (req, res) => {
                     req.body.username + ".\n");
         res.contentType('application/json');
         res.send(JSON.stringify(userinfo));
-        throw err;
       }
       else {
         console.log(result[0].Username + " has logged in.\n");
-        //console.log(result[0].Password);
-        //console.log(result[0].User_ID);
         userinfo.push({
           username: result[0].Username,
           password: result[0].Password,
@@ -82,7 +80,7 @@ app.post('/login', (req, res) => {
 
 
 
-// You will need to run ALTER query to change the foreign keys
+// I will need to run ALTER query to change the foreign keys
 // I also need to hash passwords here
 
 

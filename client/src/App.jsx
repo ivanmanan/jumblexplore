@@ -12,12 +12,25 @@ class App extends Component {
     super(props);
     this.state = {
       view: "login",
+      loggedIn: sessionStorage.getItem('loggedIn'),
       username: '',
       userSearched: ''
     };
 
+    this.login = this.login.bind(this);
     this.handleUserSearch = this.handleUserSearch.bind(this);
   }
+
+  login() {
+    this.setState({
+      loggedIn: true
+    });
+    sessionStorage.setItem('loggedIn', true);
+
+  }
+
+
+
 
   // Render possible usernames
   // This will be sent to backend for SQL query
@@ -45,7 +58,7 @@ class App extends Component {
             col-md-8
             col-sm-7
             col-xs-7">
-            <View viewSelection={this.state.view}/>
+            <View viewSelection={this.state.view} login={this.login}/>
           </div>
         </div>
 

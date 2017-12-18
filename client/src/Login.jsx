@@ -4,6 +4,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userLogin: []
     };
 
     this.onSubmit = this.handleSubmit.bind(this);
@@ -25,11 +26,19 @@ class Login extends Component {
         password: this.refs.password.value
       })
     })
-      .then(res => res.json());
-    // Check how to catch errors here
+      .then(res => res.json())
+      .then(userinfo => this.setState({ userLogin: userinfo }, () => {
 
-
-    // If error, render invalid message above login button
+        // If login was successful
+        if (this.state.userLogin[0]) {
+          console.log("Successful login!");
+          this.props.login();
+        }
+        else { // If login failed
+          // Render invalid message above login button
+          console.log("Error login!");
+        }
+      }));
   }
 
 
