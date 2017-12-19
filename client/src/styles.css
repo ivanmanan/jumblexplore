@@ -134,6 +134,12 @@ body {
     max-width: calc(32px + 8vw);
     max-height: calc(32px + 8vh);
 }
+#active {
+    background-color: aliceblue;
+    padding: 7px 7px 7px 7px;
+    border-radius: 8px;
+    box-shadow: 0 0 1px 1px darkslategray;
+}
 .Settings {
     margin-top: -8px;
 }

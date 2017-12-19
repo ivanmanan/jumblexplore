@@ -13,6 +13,7 @@ class Profile extends Component {
     this.renderSelection = this.renderSelection.bind(this);
     this.settingsSelected = this.settingsSelected.bind(this);
     this.mapSelected = this.mapSelected.bind(this);
+    this.highlightActiveTab = this.highlightActiveTab.bind(this);
   };
 
   settingsSelected() {
@@ -42,6 +43,31 @@ class Profile extends Component {
     }
   }
 
+  highlightActiveTab() {
+    if (this.state.view === "settings")
+      return (
+        <div>
+          <div className="Profile row" id="extra-padding">
+            <h2><a onClick={this.settingsSelected} id="active">Settings</a></h2>
+          </div>
+          <div className="Profile row">
+            <h2><a onClick={this.mapSelected}>My Map</a></h2>
+          </div>
+        </div>
+      );
+    else
+      return (
+        <div>
+          <div className="Profile row" id="extra-padding">
+            <h2><a onClick={this.settingsSelected}>Settings</a></h2>
+          </div>
+          <div className="Profile row">
+            <h2><a onClick={this.mapSelected} id="active">My Map</a></h2>
+          </div>
+        </div>
+      );
+  }
+
 
   render() {
     return (
@@ -52,12 +78,7 @@ class Profile extends Component {
             col-md-2 col-md-offset-3
             col-sm-3 col-sm-offset-3
             col-xs-4 col-xs-offset-2">
-            <div className="Profile row" id="extra-padding">
-              <h2><a onClick={this.settingsSelected}>Settings</a></h2>
-            </div>
-            <div className="Profile row">
-              <h2><a onClick={this.mapSelected}>My Map</a></h2>
-            </div>
+            {this.highlightActiveTab()}
           </div>
           <div className="text-left
             col-md-4 col-md-offset-1
@@ -65,8 +86,8 @@ class Profile extends Component {
             col-xs-4" id="extra-padding">
             {this.renderSelection()}
           </div>
-          </div>
         </div>
+      </div>
     );
   }
 }
