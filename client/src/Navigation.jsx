@@ -23,7 +23,8 @@ class Navigation extends Component {
             col-md-4 col-md-offset-1
             col-sm-4 col-sm-offset-1
             col-xs-4 col-xs-offset-1">
-            <img id="home" src="/home.png" alt="Home"/>
+            <img onClick={this.props.renderProfile} id="home"
+                 src="/home.png" alt="Home"/>
           </div>
           <div className="search text-left
             col-md-7

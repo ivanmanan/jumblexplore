@@ -6,10 +6,16 @@ class Logout extends Component {
   render() {
     return (
       <div className="Logout row">
+        <div className="Avatar text-right
+          col-md-1 col-md-offset-1
+          col-sm-1 col-sm-offset-1
+          col-xs-1 col-xs-offset-1">
+          <img src="/avatar.png" alt="Profile" className="Profile-Picture"/>
+        </div>
         <div className="username-display text-center
-          col-md-4 col-md-offset-2
-          col-sm-4 col-sm-offset-2
-          col-xs-4 col-xs-offset-2">
+          col-md-4
+          col-sm-4
+          col-xs-4">
           <button>
             <h5>{this.props.username}</h5>
           </button>

@@ -87,6 +87,8 @@ body {
 .username-display {
     padding-right: 0 !important;
     margin-right: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
 }
 .username-display button {
     width: 100%;
@@ -105,21 +107,44 @@ body {
     border-bottom-right-radius: 8px;
     background: ghostwhite;
 }
+.Avatar {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
 
 /* View - Profile */
 .Profile {
-    margin-top: calc(1px + 0.4vh)
+    margin-top: calc(1px + 0.4vh);
+    font-size: calc(6px + 2vw);
+}
+.Profile a {
+    color: navy;
+    font-size: calc(8px + 2vw);
+}
+.Profile a:hover {
+    cursor: pointer;
 }
 #extra-padding {
-    margin-top: 2vh;
+    margin-top: calc(10px + 1vh);
 }
-
 .Profile-Picture {
-    margin-top: calc(26px + 3vh);
-    width: 85%;
-    height: 85%;
-    max-width: 64px;
-    max-height: 64px;
+    /* margin-top: calc(20px + 3vh); */
+    width: 95%;
+    height: 95%;
+    max-width: calc(32px + 8vw);
+    max-height: calc(32px + 8vh);
+}
+.Settings {
+    margin-top: -8px;
+}
+.Settings h2 {
+    font-size: calc(8px + 1vw);
+}
+.Settings a {
+    color: darkslategray
+}
+.Settings a:hover {
+    cursor: pointer;
 }
 
 /* View - Photos */
@@ -134,7 +159,7 @@ body {
 }
 /* Adjust area of the map */
 .leaflet-container {
-    height: 55%;
+    height: 65%;
     width: 101.5%;
     margin: 3px ;
     margin-left: 0.1vw;

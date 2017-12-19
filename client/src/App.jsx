@@ -20,6 +20,7 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleUserSearch = this.handleUserSearch.bind(this);
+    this.renderProfile = this.renderProfile.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +62,12 @@ class App extends Component {
     sessionStorage.clear();
   }
 
+  renderProfile() {
+    this.setState({
+      view: 'profile'
+    });
+  }
+
 
   // Render possible usernames
   // This will be sent to backend for SQL query
@@ -82,7 +89,8 @@ class App extends Component {
             col-sm-5
             col-xs-5">
             <Navigation handleUserSearch={this.handleUserSearch}
-                        loggedIn={this.state.loggedIn}/>
+                        loggedIn={this.state.loggedIn}
+                        renderProfile={this.renderProfile}/>
           </div>
 
           <div className="
