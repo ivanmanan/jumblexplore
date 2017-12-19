@@ -79,7 +79,7 @@ body {
 
 /* View - Logout */
 .Logout {
-    margin-top: -14px;
+    margin-top: -2vh;
 }
 .Logout h5 {
     font-size: calc(2px + 2vw);
@@ -107,7 +107,20 @@ body {
 }
 
 /* View - Profile */
+.Profile {
+    margin-top: calc(1px + 0.4vh)
+}
+#extra-padding {
+    margin-top: 2vh;
+}
 
+.Profile-Picture {
+    margin-top: calc(26px + 3vh);
+    width: 85%;
+    height: 85%;
+    max-width: 64px;
+    max-height: 64px;
+}
 
 /* View - Photos */
 
