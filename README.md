@@ -27,4 +27,4 @@ Document your travels and share with others.
 See [current database implementation](https://github.com/ivanmanan/Travel-Share/blob/master/sql/database.txt).
 
 ### Installation
-Instructions to run Travel Share on local machine. Coming soon!
+Instructions to run Travel Share on local machine. Instructions will be similar to [Family Watch](https://github.com/ivanmanan/Family-Watch/blob/master/README.md).
