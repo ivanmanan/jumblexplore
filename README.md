@@ -8,8 +8,7 @@ Document your travels and share with others.
 * Installation
 
 ### Needed Installments
-* Registration -- user accounts be inserted into database
-  with passwords hashed
+* Registration -- user accounts must have their passwords hashed
 * Search bar -- auto-complete users to search for and load their locations (use
   POST requests)
 * Generate paths between each destination sorted by time
