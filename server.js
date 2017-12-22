@@ -78,10 +78,47 @@ app.post('/login', (req, res) => {
   });
 });
 
-
-
-// I will need to run ALTER query to change the foreign keys
+// Registration
 // I also need to hash passwords here
+app.post('/register', (req, res) => {
+
+  console.log("Running query...");
+  var userinfo = [];
+
+  connection.query('INSERT INTO UserLogin (Username, Password, User_Places_ID) VALUES ("' + req.body.username + '", "' + req.body.password + '", NULL);', (err, response, fields) => {
+
+  // If duplicates exist
+  if (err) throw err;
+  else {
+    console.log(req.body.username + " has registered an account.\n");
+
+    connection.query('SELECT * FROM UserLogin WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
+      if (err) throw err;
+      else {
+
+        userinfo.push({
+          username: result[0].Username,
+          password: result[0].Password,
+          user_id: result[0].User_ID
+        });
+        res.contentType('application/json');
+        res.send(JSON.stringify(userinfo));
+      }
+    });
+  }
+});
+
+
+  // I will need to run ALTER query to change the foreign keys
+
+
+
+});
+
+
+
+
+
 
 
 

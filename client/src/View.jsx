@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Login from './Login';
 import Profile from './Profile';
 import Album from './Album';
+import Register from './Register';
 
 class View extends Component {
 
@@ -14,6 +15,10 @@ class View extends Component {
       case "album":
         return (
           <Album logout={this.props.logout} username={this.props.username}/>
+        );
+      case "register":
+        return (
+          <Register logout={this.props.logout} login={this.props.login}/>
         );
       case "login":
       default:

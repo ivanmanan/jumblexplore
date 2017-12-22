@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,18 +9,20 @@ class Login extends Component {
     this.onSubmit = this.handleSubmit.bind(this);
   }
 
-  // When user logs in
+  // When user registers account
   handleSubmit(e) {
     e.preventDefault();
 
-    // On submit of the form, send a POST request with login data to the server.
-    fetch('/login', {
+    // On submit of the form, senda POST request with registration data
+    // to the server
+    fetch('/register', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: 'POST',
       body: JSON.stringify({
+        email: this.refs.email.value,
         username: this.refs.username.value,
         password: this.refs.password.value
       })
@@ -28,28 +30,39 @@ class Login extends Component {
       .then(res => res.json())
       .then(userinfo => this.setState({ userLogin: userinfo }, () => {
 
-        // If login was successful
+        // If registration was successful
         if (this.state.userLogin[0]) {
           sessionStorage.setItem('loggedIn', true);
           sessionStorage.setItem('username', this.state.userLogin[0].username);
           sessionStorage.setItem('user_id', this.state.userLogin[0].user_id);
           this.props.login();
         }
-        else { // If login failed
+        else { // Registration failed - i.e. duplicate username or email
           // Render invalid message above login button
           console.log("Error login!");
         }
       }));
   }
 
-  // When user tries to sign-up, just make a modal on top of the Maps screen
-  // This is the POST request to insert into database
-  // Then trigger the login successful
-
+  // Need to fix css and register input forms to fit within smaller space
   render() {
     return (
-      <div className="Login">
+      <div className="Register">
         <form onSubmit={this.onSubmit}>
+          <div className="login-row row">
+            <div className="text-right
+              col-md-4
+              col-sm-4
+              col-xs-4">
+              <h2>Email</h2>
+            </div>
+            <div className="text-center
+              col-md-4
+              col-sm-4
+              col-xs-4">
+              <input autoFocus type="email" ref="email"/>
+            </div>
+          </div>
           <div className="login-row row">
             <div className="text-right
               col-md-4
@@ -57,12 +70,13 @@ class Login extends Component {
               col-xs-4">
               <h2>Username</h2>
             </div>
-            <div className="text-center
+            <div className="text-left
               col-md-4
               col-sm-4
               col-xs-4">
-              <input autoFocus type="text" ref="username" required/>
+              <input type="text" ref="username" required/>
             </div>
+
           </div>
           <div className="login-row row">
             <div className="text-right
@@ -82,18 +96,20 @@ class Login extends Component {
               col-sm-3
               col-xs-3">
               <button className="login-button">
-                <p>Login</p>
+                <p>Register</p>
               </button>
             </div>
           </div>
           <div className="row" id="register">
-            <h4>No account? <a onClick={this.props.register}>Signup here</a>
+            <h4>Already have an account? <a onClick={this.props.logout}>Sign in here</a>
             </h4>
           </div>
         </form>
+
+
       </div>
     );
   }
 }
 
-export default Login;
+export default Register;

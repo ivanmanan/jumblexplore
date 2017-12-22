@@ -21,6 +21,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.handleUserSearch = this.handleUserSearch.bind(this);
     this.renderProfile = this.renderProfile.bind(this);
+    this.register = this.register.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +63,12 @@ class App extends Component {
     sessionStorage.clear();
   }
 
+  register() {
+    this.setState({
+      view: 'register'
+    });
+  }
+
   renderProfile() {
     this.setState({
       view: 'profile'
@@ -97,7 +104,7 @@ class App extends Component {
             col-xs-7">
             <View viewSelection={this.state.view} loggedIn={this.state.loggedIn}
                   login={this.login} logout={this.logout}
-                  username={this.state.username}/>
+                  username={this.state.username} register={this.register}/>
           </div>
         </div>
 

@@ -23,7 +23,7 @@ CREATE TABLE User_Places (
 
 CREATE TABLE UserLogin (
        User_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-       Username varchar(255) NOT NULL,
+       Username varchar(255) NOT NULL UNIQUE,
        Password varchar(255) NOT NULL,
        User_Places_ID INT,
        FOREIGN KEY (User_Places_ID) REFERENCES User_Places(User_Places_ID)
