@@ -68,7 +68,6 @@ class App extends Component {
     });
   }
 
-
   // Render possible usernames
   // This will be sent to backend for SQL query
   handleUserSearch(inputText) {
@@ -82,7 +81,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
         <div className="Panel row">
           <div className="
             col-md-4

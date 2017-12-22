@@ -6,8 +6,8 @@ class Login extends Component {
     this.state = {
       userLogin: []
     };
-
     this.onSubmit = this.handleSubmit.bind(this);
+    this.renderRegistration = this.renderRegistration.bind(this);
   }
 
   // When user logs in
@@ -41,6 +41,10 @@ class Login extends Component {
           console.log("Error login!");
         }
       }));
+  }
+
+  renderRegistration() {
+    console.log("Hello!");
   }
 
 
@@ -88,8 +92,9 @@ class Login extends Component {
               </button>
             </div>
           </div>
-          <div className="row">
-            <h4>No account? <a>Signup here</a></h4>
+          <div className="row" id="register">
+            <h4>No account? <a onClick={this.renderRegistration}>Signup here</a>
+            </h4>
           </div>
         </form>
       </div>

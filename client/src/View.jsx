@@ -18,7 +18,7 @@ class View extends Component {
       case "login":
       default:
         return (
-          <Login login={this.props.login}/>
+          <Login login={this.props.login} register={this.props.register}/>
         );
     }
   }

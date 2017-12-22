@@ -112,6 +112,14 @@ body {
     margin-right: 0 !important;
 }
 
+/* View - Registration */
+#register a {
+    color: navy;
+}
+#register a:hover {
+    cursor: pointer;
+}
+
 /* View - Profile */
 .Profile {
     margin-top: calc(1px + 0.4vh);
