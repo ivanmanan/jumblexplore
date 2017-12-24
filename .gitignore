@@ -12,3 +12,6 @@ yarn-error.log*
 
 # Database Credentials
 config.js
+
+# Node.js Log
+report.log
