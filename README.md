@@ -15,10 +15,9 @@ Document your travels and share with others.
 * Generate paths between each destination sorted by time
 * Install web security features e.g. Prevent SQL injections on sign in forms
 * Install user settings -- Change passwords and be able to delete account
-* Install profile pictures
 * Tools -- (1) insert map coordinates, (2) display time span, (3) show paths
   sorted by time
-* Pop-ups in map -- they should display time and render photos/blog
+* Pop-ups in map -- they should display date only
 * Cancel user searched -- their username should appear at the top-left corner of
   the map
 * Nice to have: attempt implementing the spam email in server.js
