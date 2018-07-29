@@ -1,8 +1,8 @@
 html {
     width: 100%;
     height: 100%;
-    overflow-y: hidden; /* Hide vertical scroll bar */
-    overflow-x: hidden; /* Hide horizontal scroll bar */
+    /* overflow-y: hidden; /\* Hide vertical scroll bar *\/ */
+    /* overflow-x: hidden; /\* Hide horizontal scroll bar *\/ */
 }
 body {
     font-family: Sans-Serif, times-new-roman, Times;
@@ -12,157 +12,17 @@ body {
     margin: 0px;
 }
 
-/* Entire Top Panel */
-.Panel {
-    background-color: lightsteelblue;
-    box-shadow: 0 0 3px 3px darkslategray;
-    padding-bottom: 2.5vh;
-    padding-top: 2vh;
-}
+/* Sidebar */
+.Sidebar-container {
+    margin-top: calc(8px + 5vw);
+    position: fixed;
+    float: left;
+    z-index: 100;
 
-/* Navigation */
-.Title h1 {
-    margin-left: calc(2vh + 1vw);
-    font-size: calc(15px + 4vw);
-    margin-bottom: 2vw;
-    text-shadow: 1px 1px gray;
-}
-.Not-Logged-In {
-    margin-left: 1vw;
-    text-shadow: 0.5px 0.5px gray;
-}
-#home {
-    max-width: 40%;
-    max-height: 40%;
-    width: auto;
-    height: auto;
-}
-#home:hover {
-    background-color: silver;
-    cursor: pointer;
-}
-#searchBar {
-    margin-bottom: 1.5vw;
-    width: 100%;
-    padding: 0.5vw 0.5vw;
-    box-sizing: border-box;
-    border: 0.1vw solid darkgray;
-    font-size: calc(10px + 1vw);
-}
+    border: 2px solid lightsteelblue;
+    background-color: white;
 
-/* View */
-
-/* View - Login */
-.login-row h2 {
-    font-size: calc(4px + 3vw);
 }
-.login-row input {
-    margin-top: 1.8vw;
-    width: 100%;
-    padding: 0.5vw 0.5vw;
-    font-size: calc(6px + 1vw);
-    border: 0.1vw solid darkgray;
-}
-.login-button-container {
-    margin-top: calc(10px + 1vw);
-}
-.login-button {
-    width: calc(95%);
-    height: 3.5vw;
-    background-color: ivory;
-    border-radius: 4px;
-    border: 2px solid darkgray;
-}
-.login-button p {
-    font-size: calc(2vw);
-}
-
-/* View - Logout */
-.Logout {
-    margin-top: -2vh;
-}
-.Logout h5 {
-    font-size: calc(2px + 2vw);
-}
-.username-display {
-    padding-right: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-}
-.username-display button {
-    width: 100%;
-    background: floralwhite;
-    border-bottom-left-radius: 8px;
-}
-.username-display button:hover {
-    cursor: auto;
-}
-.logout {
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-}
-.logout button {
-    width: 100%;
-    border-bottom-right-radius: 8px;
-    background: ghostwhite;
-}
-.Avatar {
-    padding-right: 0 !important;
-    margin-right: 0 !important;
-}
-
-/* View - Registration */
-#register a {
-    color: navy;
-}
-#register a:hover {
-    cursor: pointer;
-}
-
-/* View - Profile */
-.Profile {
-    margin-top: calc(1px + 0.4vh);
-    font-size: calc(6px + 2vw);
-}
-.Profile a {
-    color: navy;
-    font-size: calc(8px + 2vw);
-}
-.Profile a:hover {
-    cursor: pointer;
-}
-#extra-padding {
-    margin-top: calc(10px + 1vh);
-}
-.Profile-Picture {
-    /* margin-top: calc(20px + 3vh); */
-    width: 95%;
-    height: 95%;
-    max-width: calc(32px + 8vw);
-    max-height: calc(32px + 8vh);
-}
-#active {
-    background-color: aliceblue;
-    padding: 7px 7px 7px 7px;
-    border-radius: 8px;
-    box-shadow: 0 0 1px 1px darkslategray;
-}
-.Settings {
-    margin-top: -8px;
-}
-.Settings h2 {
-    font-size: calc(8px + 1vw);
-}
-.Settings a {
-    color: darkslategray
-}
-.Settings a:hover {
-    cursor: pointer;
-}
-
-/* View - Photos */
-
 
 /* Maps */
 .Maps-container {
@@ -170,12 +30,11 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 /* Adjust area of the map */
 .leaflet-container {
-    height: 65%;
-    width: 101.5%;
-    margin: 3px ;
-    margin-left: 0.1vw;
+    height: 100%;
+    width: 100%;
 }
 
