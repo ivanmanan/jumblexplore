@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar/Sidebar';
 import Maps from './Maps';
 
 
