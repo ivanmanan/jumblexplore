@@ -7,28 +7,23 @@ import Maps from './Maps';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      name: "Login Here"
+    };
   }
 
   render() {
     return (
       <div className="App">
         <div className="container">
-        <div className="row">
-          <div className="text-center
-            col-md-3 col-md-offset-1
-            col-sm-3 col-sm-offset-1
-            col-xs-3 col-xs-offset-1">
-            <div className="Sidebar">
-              <Sidebar/>
-            </div>
-          </div>
+          <Sidebar name={this.state.name}/>
         </div>
-            </div>
 
-            <div className="Maps">
-              <Maps/>
-            </div>
-          </div>
+
+        <Maps/>
+
+      </div>
     );
   }
 }

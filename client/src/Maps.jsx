@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from './leaflet';
+import { Map, TileLayer, Marker, Popup, ZoomControl } from './leaflet';
 
 class Maps extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class Maps extends Component {
     this.state = {
       lat: 34.0407,
       lng: -118.2468,
-      zoom: 13,
+      zoom: 6,
     };
   }
 
@@ -16,11 +16,16 @@ class Maps extends Component {
     const sample_position = [this.state.lat, this.state.lng]
     return (
       <div className="Maps-container">
-        <Map center={sample_position} zoom={this.state.zoom}>
+        <Map center={sample_position} zoom={this.state.zoom} zoomControl={false} minZoom={3} maxZoom={14} worldCopyJump={true}>
+
           <TileLayer
             attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            noWrap={false}
           />
+          <ZoomControl position="topright"/>
+
+          {/* Temporary content below */}
           <Marker position={sample_position}>
             <Popup>
               <span>
@@ -28,6 +33,7 @@ class Maps extends Component {
               </span>
             </Popup>
           </Marker>
+
         </Map>
       </div>
     );
