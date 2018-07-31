@@ -8,8 +8,10 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
 
+    // DEV: For developing purposes; leave sidebar open at all times
+    // When distributing, make sure to change it to false
     this.state = {
-      open: false
+      open: true
     };
 
     this.revealSidebar = this.revealSidebar.bind(this);
@@ -24,17 +26,19 @@ class Sidebar extends Component {
   render() {
     return (
       <div className="Sidebar-container
-        col-md-3
-        col-sm-5
-        col-xs-8">
+        col-md-4
+        col-sm-10
+        col-xs-10">
 
 
-        <Omnibox revealSidebar={this.revealSidebar}/>
+        <Omnibox revealSidebar={this.revealSidebar}
+                 open={this.state.open}/>
 
 
         <Collapse id="Sidebar" in={this.state.open}>
           <div>
-            <View name={this.props.name}/>
+            <View name={this.props.name}
+                  viewSelection={this.props.viewSelection}/>
           </div>
         </Collapse>
       </div>

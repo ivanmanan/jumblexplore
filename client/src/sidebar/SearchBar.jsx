@@ -15,16 +15,17 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <form id="Search">
-        <input
-          id="SearchBar"
-          type="text"
-          placeholder="Search User"
-          value={this.props.username}
-          onChange={this.handleUserSearch}
-        />
-      </form>
-
+      <div id="Search">
+        <form>
+          <input
+            id="SearchBar"
+            type="text"
+            placeholder="Search User"
+            value={this.props.username}
+            onChange={this.handleUserSearch}
+          />
+        </form>
+      </div>
     );
   }
 }

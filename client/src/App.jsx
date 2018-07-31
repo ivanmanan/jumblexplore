@@ -9,7 +9,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      name: "Login Here"
+      name: "Login Here",
+      viewSelection: "login"
     };
   }
 
@@ -17,7 +18,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
-          <Sidebar name={this.state.name}/>
+          <Sidebar name={this.state.name}
+                   viewSelection={this.state.viewSelection}/>
         </div>
 
 

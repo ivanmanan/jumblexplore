@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 
 import SearchBar from './SearchBar';
+import { Collapse } from 'react-bootstrap';
 
 class Omnibox extends Component {
 
@@ -13,7 +14,11 @@ class Omnibox extends Component {
             <i className="fa fa-bars"></i>
           </center>
         </Button>
-        <SearchBar/>
+        <Collapse in={this.props.open}>
+          <div>
+            <SearchBar/>
+          </div>
+        </Collapse>
       </div>
     );
   }
