@@ -15,14 +15,13 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div id="Search">
-        <form>
+      <div>
+        <form onSubmit={this.handleUserSearch}>
           <input
             id="SearchBar"
             type="text"
             placeholder="Search User"
             value={this.props.username}
-            onChange={this.handleUserSearch}
           />
         </form>
       </div>

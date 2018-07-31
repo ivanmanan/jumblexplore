@@ -9,8 +9,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      name: "Login Here",
-      viewSelection: "login"
+      viewSelection: "login",
+      loggedIn: false, // Change this to sessionStorage
+      username: sessionStorage.getItem('username'),
+      user_id: sessionStorage.getItem('user_id'),
+      userSearched: ''
     };
   }
 

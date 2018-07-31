@@ -14,7 +14,7 @@ class Omnibox extends Component {
             <i className="fa fa-bars"></i>
           </center>
         </Button>
-        <Collapse in={this.props.open}>
+        <Collapse in={this.props.open} id="Search">
           <div>
             <SearchBar/>
           </div>

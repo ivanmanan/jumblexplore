@@ -8,8 +8,6 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
 
-    // DEV: For developing purposes; leave sidebar open at all times
-    // When distributing, make sure to change it to false
     this.state = {
       open: true
     };

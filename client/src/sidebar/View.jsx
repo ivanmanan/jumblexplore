@@ -5,7 +5,6 @@ import Register from './Register';
 import Login from './Login';
 
 class View extends Component {
-
   constructor(props) {
     super(props);
 
@@ -13,9 +12,7 @@ class View extends Component {
   }
 
   getView() {
-
     switch(this.props.viewSelection) {
-
       case "account":
         return (
           <Account/>
@@ -31,7 +28,6 @@ class View extends Component {
         );
     }
   }
-
 
   render() {
     return (
