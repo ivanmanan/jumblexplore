@@ -45,49 +45,32 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="Login-Register">
         <form onSubmit={this.handleLogin}>
-
           <div className="row">
-            <div className="text-right
-              col-md-3 col-md-offset-1
-              col-sm-3 col-sm-offset-1
-              col-xs-3 col-xs-offset-1">
+            <div className={this.props.field_label}>
               <h2>Username</h2>
             </div>
-            <div className="text-left
-              col-md-7
-              col-sm-7
-              col-xs-7">
+            <div className={this.props.field_input}>
               <input type="text" ref="username" required/>
             </div>
           </div>
           <div className="row">
-            <div className="text-right
-              col-md-3 col-md-offset-1
-              col-sm-3 col-sm-offset-1
-              col-xs-3 col-xs-offset-1">
+            <div className={this.props.field_label}>
               <h2>Password</h2>
             </div>
-            <div className="text-left
-              col-md-7
-              col-sm-7
-              col-xs-7">
+            <div className={this.props.field_input}>
               <input type="password" ref="password" required/>
             </div>
           </div>
           <div className="row">
-            <div className="login-button-container text-center
-              col-md-5 col-md-offset-5
-              col-sm-3 col-sm-offset-5
-              col-xs-3 col-xs-offset-5">
-              <button className="login-button">
+            <div className={this.props.button_box}>
+              <button className="multiuse-button">
                 <p>Login</p>
               </button>
             </div>
           </div>
-
-          <div className="row" id="Register-link">
+          <div className="row" id="Login-Register-link">
             <div className="text-center
               col-md-12
               col-sm-12
@@ -97,9 +80,6 @@ class Login extends Component {
               </h4>
             </div>
           </div>
-
-
-
         </form>
       </div>
     );

@@ -96,7 +96,6 @@ app.post('/register', (req, res) => {
         connection.query('SELECT * FROM UserLogin WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
           if (err) throw err;
           else {
-
             userinfo.push({
               username: result[0].Username,
               password: result[0].Password,

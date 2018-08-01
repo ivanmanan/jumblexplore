@@ -20,7 +20,7 @@ class SearchBar extends Component {
           <input
             id="SearchBar"
             type="text"
-            placeholder="Search User"
+            placeholder="Search Place or User"
             value={this.props.username}
           />
         </form>

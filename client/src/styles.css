@@ -23,20 +23,26 @@ body {
 
 .Omnibox-container {
     width: 100%;
+    height: calc(4px + 3vw + 3vh);
     margin: 0;
     padding: 0;
 }
 
 #Menu-Button {
     float: left;
-    width: 25%;
+    width: 15%;
+}
+
+#Search-Button {
+    width: 15%;
 }
 
 #Search {
-    width: 75%;
+    width: 70%;
 }
 
 #SearchBar {
+    height: calc(4px + 3vw + 3vh);
     padding: 3px 3px 4px 3px;
     border-radius: 4px;
     width: 100%;
@@ -47,48 +53,77 @@ body {
     background-color: white;
 }
 
-
-
 /* Views - Account, Register, Login */
-
-/* Account */
-
-/* Register */
-
-/* Login */
-.Login {
+.multiuse-button {
     margin-top: calc(2px + 2vw);
-}
-
-.Login h2 {
-    font-size: calc(4px + 1vw);
-}
-
-.Login input {
+    margin-bottom: calc(2px + 2vw);
     width: 100%;
-}
-
-.login-button {
-    margin-top: calc(2px + 2vw);
-    width: calc(100%);
-    height: 3.5vw;
+    height: calc(2vw + 2vh);
     background-color: ivory;
     border-radius: 4px;
     border: 2px solid darkgray;
+    line-height: calc(1.5vw + 2.5vh);
 }
-.login-button p {
+
+.multiuse-button p {
     font-size: calc(2vw);
 }
 
-#Register-link {
+/* Account */
+.Profile {
     margin-top: calc(2px + 2vw);
+    margin-bottom: 4vh;
+}
+
+#Profile-Picture {
+    width: 100%;
+    height: 100%;
+    max-width: calc(32px + 8vh);
+    max-height: calc(32px + 8vw);
+}
+
+.Place-Field {
+    margin-top: calc(2px + 0.5vw + 1vh);
+}
+
+.Place-Field-Input input {
+    width: 100%;
+    background-color: snow;
+}
+
+#insert-place-button {
+    margin-bottom: -1vh;
+}
+
+#New-Details {
+    width: 100%;
+    border-color: green;
+    background-color: snow;
+}
+
+/* Login-Register */
+.Login-Register {
+    margin-top: calc(2px + 2vw);
+}
+
+.Login-Register h2 {
+    font-size: calc(4px + 1vw);
+}
+
+.Login-Register input {
+    width: 100%;
+    background-color: snow;
+}
+
+#Login-Register-link {
     margin-bottom: calc(2px + 2vw);
 }
 
-#Register-link a {
+#Login-Register-link a {
     color: navy;
 }
-#Register-link a:hover {
+
+#Login-Register-link a:hover {
     cursor: pointer;
 }
 
