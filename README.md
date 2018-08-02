@@ -58,34 +58,22 @@ Document your travels and share with others.
   this POST request
 
 ### Current Database
-<pre>
-+------------------------------+
-|</pre>**User_Login**<pre>                |
-+------------------------------+
-|User_ID                       |
-+------------------------------+
-|Username                      |
-+------------------------------+
-|Email                         |
-+------------------------------+
-|Password                      |
-+------------------------------+
-</pre>
 Ideally, User_ID and User_Places_ID are identical.
-
-+------------------------------+
-|**User_Places**               |
-+------------------------------+
-|User_Places_ID                |
-+------------------------------+
-|Place_ID (Foreign Key)        |
-+------------------------------+
-|Date_Record                   |
-+------------------------------+
-|Caption                       |
-+------------------------------+
-
 There can be duplicate User_Places_ID's, but multiple Place_ID's.
+
+<pre>
++------------------------------+     +------------------------------+
+|**User_Login**                |     |**User_Places**               |
++------------------------------+     +------------------------------+
+|User_ID                       |     |User_Places_ID                |
++------------------------------+     +------------------------------+
+|Username                      |     |Place_ID (Foreign Key)        |
++------------------------------+     +------------------------------+
+|Email                         |     |Date_Record                   |
++------------------------------+     +------------------------------+
+|Password                      |     |Caption                       |
++------------------------------+  +------------------------------+
+
 
 +------------------------------+
 |**Places**                    |
@@ -98,6 +86,8 @@ There can be duplicate User_Places_ID's, but multiple Place_ID's.
 +------------------------------+
 |Longitude                     |
 +------------------------------+
+
+</pre>
 
 ### Installation
 Instructions to run Travel Share on local machine. Instructions will be similar to [Family Watch](https://github.com/ivanmanan/Family-Watch/blob/master/README.md).
