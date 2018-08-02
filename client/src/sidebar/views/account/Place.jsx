@@ -16,9 +16,32 @@ class Place extends Component {
       console.log(this.refs.new_place.value);
       console.log(this.refs.new_date.value);
       console.log(this.refs.new_caption.value);
+      console.log(this.props.insertLat);
+      console.log(this.props.insertLon);
 
-      // TODO: Run the sql query here that saves the place to the user
+      fetch('/place', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          username: this.props.username,
+          user_id: this.props.user_id,
+          place: this.refs.new_place.value,
+          latitude: this.props.insertLat,
+          longitude: this.props.insertLon,
+          date: this.refs.new_date.value,
+          caption: this.refs.new_caption.value
+        })
+      })
+        //.then(res => res.json())
+        .then(success => {
 
+          // TODO: Clear map
+          // Display all of user's saved places
+          console.log("Hello!");
+        });
     }
     else {
       // TODO: Flash red error message saying place must be

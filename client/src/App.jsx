@@ -19,6 +19,8 @@ class App extends Component {
       placeSearch: '',
       mapFocus: [34.0407, -118.2468],
       insertPlace: DEFAULT_PLACE_QUERY,
+      insertLat: 0,
+      insertLon: 0,
       mapZoom: 2
     };
     this.login = this.login.bind(this);
@@ -90,7 +92,9 @@ class App extends Component {
   potentialPlace(place) {
     console.log(place);
     this.setState({
-      insertPlace: place.label
+      insertPlace: place.label,
+      insertLat: place.y,
+      insertLon: place.x
     });
   }
 
@@ -107,7 +111,10 @@ class App extends Component {
                    login={this.login} logout={this.logout}
                    register={this.register}
                    placeSearch={this.placeSearch}
+                   user_id={this.state.user_id}
                    insertPlace={this.state.insertPlace}
+                   insertLat={this.state.insertLat}
+                   insertLon={this.state.insertLon}
                    default_place_query={DEFAULT_PLACE_QUERY}/>
         </div>
         <Maps mapFocus={this.state.mapFocus}

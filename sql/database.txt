@@ -11,8 +11,6 @@ Current Database
 +------------------------------+
 |Password                      |
 +------------------------------+
-|User_Places_ID (Foreign Key)  |
-+------------------------------+
 
 Ideally, User_ID and User_Places_ID are identical.
 

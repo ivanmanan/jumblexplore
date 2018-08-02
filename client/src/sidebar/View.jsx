@@ -23,6 +23,9 @@ class View extends Component {
           <Account username={this.props.username}
                    logout={this.props.logout}
                    button_box={button_box}
+                   user_id={this.props.user_id}
+                   insertLat={this.props.insertLat}
+                   insertLon={this.props.insertLon}
                    insertPlace={this.props.insertPlace}
                    default_place_query={this.props.default_place_query}/>
         );

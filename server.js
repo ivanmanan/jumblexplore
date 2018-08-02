@@ -56,7 +56,10 @@ app.post('/login', (req, res) => {
   // This same SQL injection check must be made for registration
   // I need to unhash passwords here
 
-  connection.query('SELECT * FROM User_Login WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
+  const query_one = 'SELECT * FROM User_Login WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";';
+  console.log(query_one);
+
+  connection.query(query_one, (err, result, fields) => {
     if (err) throw err;
     else {
       // Check if one entry in SQL database shows up correctly
@@ -87,7 +90,10 @@ app.post('/register', (req, res) => {
   console.log("Running query...");
   var userinfo = [];
 
-  connection.query('INSERT INTO User_Login (Username, Email, Password, User_Places_ID) VALUES ("' + req.body.username + '", "' + req.body.email + '", "' + req.body.password + '", NULL);', (err, response, fields) => {
+  const query_one = 'INSERT INTO User_Login (Username, Email, Password) VALUES ("' + req.body.username + '", "' + req.body.email + '", "' + req.body.password + '");';
+  console.log(query_one);
+
+  connection.query(query_one, (err, response, fields) => {
 
     // TODO: Check if username or email is case sensitive in the database -- e.g. "ivan" is the same as "Ivan"
     // If duplicates exist
@@ -96,7 +102,9 @@ app.post('/register', (req, res) => {
       else {
         console.log(req.body.username + " has registered an account.\n");
 
-        connection.query('SELECT * FROM User_Login WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
+        const query_two = 'SELECT * FROM User_Login WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";';
+
+        connection.query(query_two, (err, result, fields) => {
           if (err) throw err;
           else {
             userinfo.push({
@@ -130,10 +138,62 @@ app.post('/place', (req, res) => {
   // TODO: if User_Places_ID is NULL, then update it with ALTER query
 
   console.log("Running query...");
+  const query_one = 'INSERT INTO Places (Place, Latitude, Longitude) VALUES ("' + req.body.place + '", "' + req.body.latitude + '", "' + req.body.longitude + '");';
+  console.log(query_one + "\n");
 
-  connection.query('INSERT INTO Places (Place, Latitude, Longitude) VALUES ("' + req.body.place + '", "' + req.body.latitude + '", "' + req.body.longitude + '");', (err, response, fields) => {
+  connection.query(query_one, (err, res, fields) => {
+    try {
+      if (err) throw err;
+      else {
+        // Query successfully
+        // This means new place was inserted
+        // Set the new Place_ID for the User_Places_ID foreign key
+        const query_two = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + res.insertId + '", "' + req.body.date + '", "' + req.body.caption + '");';
+        console.log(query_two);
 
+        connection.query(query_two, (err_two, result, fields_two) => {
+          try {
+            if (err_two) throw err_two;
+            else {
+              console.log(req.body.username + " has saved a new place!\n");
+            }
+          }
+          catch (err_two) {
+            console.log("ERROR: " + req.body.username + " has an error in saving a place!\n");
+          }
+        });
+      }
+    }
+    catch (err) {
+      // If place exists, then find that place_id
+      const query_three = 'SELECT * FROM Places WHERE Place="' + req.body.place + '";';
+      console.log(query_three + "\n");
 
+      connection.query(query_three, (err_two, result, fields_two) => {
+        try {
+          if (err_two) throw err_two;
+          else {
+
+            const query_four = 'UPDATE User_Places SET User_Places_ID="' + req.body.user_id + '", Place_ID="' + result[0].Place_ID + '", Date_Record="' + req.body.date + '", Caption="' + req.body.caption + '" WHERE User_Places_ID="' + req.body.user_id + '" AND Place_ID="' + result[0].Place_ID + '";';
+            console.log(query_four);
+
+            connection.query(query_four, (err_three, results, fields_three) => {
+              try {
+                console.log(req.body.username + " has saved a new place!\n");
+              }
+              catch (err_three) {
+                console.log("ERROR: " + req.body.username + " has an error in saving a place!\n");
+              }
+            });
+          }
+        }
+        catch (err_two) {
+          // User attempts to reinsert same place into the database
+          console.log("Do nothing.\n");
+          // TODO: Flash error message on the front-end
+        }
+      });
+    }
   });
 });
 

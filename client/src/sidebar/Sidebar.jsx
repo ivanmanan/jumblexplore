@@ -45,6 +45,9 @@ class Sidebar extends Component {
                   login={this.props.login}
                   logout={this.props.logout}
                   register={this.props.register}
+                  user_id={this.props.user_id}
+                  insertLat={this.props.insertLat}
+                  insertLon={this.props.insertLon}
                   insertPlace={this.props.insertPlace}
                   default_place_query={this.props.default_place_query}/>
           </div>

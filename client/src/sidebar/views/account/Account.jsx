@@ -28,6 +28,10 @@ class Account extends Component {
         </div>
 
         <Place central_button={central_button}
+               username={this.props.username}
+               user_id={this.props.user_id}
+               insertLat={this.props.insertLat}
+               insertLon={this.props.insertLon}
                insertPlace={this.props.insertPlace}
                default_place_query={this.props.default_place_query}/>
 
