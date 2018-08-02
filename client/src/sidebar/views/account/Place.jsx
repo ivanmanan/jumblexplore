@@ -16,6 +16,9 @@ class Place extends Component {
       console.log(this.refs.new_place.value);
       console.log(this.refs.new_date.value);
       console.log(this.refs.new_caption.value);
+
+
+
     }
     else {
       // TODO: Flash red error message saying place must be

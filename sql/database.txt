@@ -32,6 +32,3 @@ There can be duplicate User_Places_ID's, but multiple Place_ID's.
 +------------------------------+
 |Place                         |
 +------------------------------+
-
-Future Tables: Photo file names and blogs categorized in albums.
-
