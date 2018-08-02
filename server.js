@@ -141,7 +141,7 @@ app.post('/place', (req, res) => {
   const query_one = 'INSERT INTO Places (Place, Latitude, Longitude) VALUES ("' + req.body.place + '", "' + req.body.latitude + '", "' + req.body.longitude + '");';
   console.log(query_one + "\n");
 
-  connection.query(query_one, (err, res, fields) => {
+  connection.query(query_one, (err, response, fields) => {
     try {
       if (err) throw err;
       else {
@@ -156,6 +156,7 @@ app.post('/place', (req, res) => {
             if (err_two) throw err_two;
             else {
               console.log(req.body.username + " has saved a new place!\n");
+              res.send(JSON.stringify("Success!"));
             }
           }
           catch (err_two) {
@@ -180,6 +181,7 @@ app.post('/place', (req, res) => {
             connection.query(query_four, (err_three, results, fields_three) => {
               try {
                 console.log(req.body.username + " has saved a new place!\n");
+                res.send(JSON.stringify("Success!"));
               }
               catch (err_three) {
                 console.log("ERROR: " + req.body.username + " has an error in saving a place!\n");

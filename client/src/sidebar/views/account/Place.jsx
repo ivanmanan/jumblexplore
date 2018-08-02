@@ -13,12 +13,6 @@ class Place extends Component {
     e.preventDefault();
 
     if (this.refs.new_place.value !== this.props.default_place_query) {
-      console.log(this.refs.new_place.value);
-      console.log(this.refs.new_date.value);
-      console.log(this.refs.new_caption.value);
-      console.log(this.props.insertLat);
-      console.log(this.props.insertLon);
-
       fetch('/place', {
         headers: {
           'Accept': 'application/json',
@@ -35,12 +29,9 @@ class Place extends Component {
           caption: this.refs.new_caption.value
         })
       })
-        //.then(res => res.json())
-        .then(success => {
-
-          // TODO: Clear map
-          // Display all of user's saved places
-          console.log("Hello!");
+        .then((data) => {
+          // Clear map and display all of user's saved places
+          this.props.displaySavedPlaces();
         });
     }
     else {

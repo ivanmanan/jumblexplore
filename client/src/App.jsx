@@ -28,11 +28,21 @@ class App extends Component {
     this.register = this.register.bind(this);
     this.placeSearch = this.placeSearch.bind(this);
     this.potentialPlace = this.potentialPlace.bind(this);
+    this.displaySavedPlaces = this.displaySavedPlaces.bind(this);
+  }
+
+  // Query that retrieves saved places
+  displaySavedPlaces() {
+    console.log("Hello from App.jsx!");
   }
 
   componentDidMount() {
     // If logged in, render Account component
     if (sessionStorage.getItem('loggedIn')) {
+
+      // Retrieve saved places from database
+      this.displaySavedPlaces();
+
       this.setState({
         view: "account",
         loggedIn: true
@@ -47,6 +57,9 @@ class App extends Component {
   }
 
   login() {
+    // Retrieve saved places from database
+    this.displaySavedPlaces();
+
     this.setState({
       view: "account",
       loggedIn: sessionStorage.getItem('loggedIn'),
@@ -98,9 +111,6 @@ class App extends Component {
     });
   }
 
-
-
-
   render() {
     return (
       <div className="App">
@@ -115,7 +125,8 @@ class App extends Component {
                    insertPlace={this.state.insertPlace}
                    insertLat={this.state.insertLat}
                    insertLon={this.state.insertLon}
-                   default_place_query={DEFAULT_PLACE_QUERY}/>
+                   default_place_query={DEFAULT_PLACE_QUERY}
+                   displaySavedPlaces={this.displaySavedPlaces}/>
         </div>
         <Maps mapFocus={this.state.mapFocus}
               mapZoom={this.state.mapZoom}

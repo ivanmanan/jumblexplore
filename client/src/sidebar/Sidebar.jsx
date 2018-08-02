@@ -49,7 +49,8 @@ class Sidebar extends Component {
                   insertLat={this.props.insertLat}
                   insertLon={this.props.insertLon}
                   insertPlace={this.props.insertPlace}
-                  default_place_query={this.props.default_place_query}/>
+                  default_place_query={this.props.default_place_query}
+                  displaySavedPlaces={this.props.displaySavedPlaces}/>
           </div>
         </Collapse>
       </div>
