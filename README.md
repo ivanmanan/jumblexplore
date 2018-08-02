@@ -9,7 +9,7 @@ Document your travels and share with others.
 * Installation
 
 ### Front-End File Structure
-├── App.jsx\s\s
+├── App.jsx<br/>
 ├── index.js
 ├── **leaflet**
 ├── Maps.jsx
