@@ -11,19 +11,17 @@ class Place extends Component {
 
   insertPlace(e) {
     e.preventDefault();
-    console.log(this.refs.new_place.value);
-    console.log(this.refs.new_date.value);
-    console.log(this.refs.new_caption.value);
 
-    // TODO: First must locate the place on the map,
-    // this must be done by pop-up displaying all the places
-    // Moreover, the place must be selected from the list!!
-
-    // User must select pop-up from the map
-    // This pop-up will populate the input query
-    // do not submit form unless input value is proper address
-    // automove map to first pop-up
-
+    if (this.refs.new_place.value !== this.props.default_place_query) {
+      console.log(this.refs.new_place.value);
+      console.log(this.refs.new_date.value);
+      console.log(this.refs.new_caption.value);
+    }
+    else {
+      // TODO: Flash red error message saying place must be
+      // selected from the map
+      console.log("Must search for a place in the map!");
+    }
   }
 
   render() {

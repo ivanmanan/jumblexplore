@@ -45,7 +45,8 @@ class Sidebar extends Component {
                   login={this.props.login}
                   logout={this.props.logout}
                   register={this.props.register}
-                  insertPlace={this.props.insertPlace}/>
+                  insertPlace={this.props.insertPlace}
+                  default_place_query={this.props.default_place_query}/>
           </div>
         </Collapse>
       </div>

@@ -28,7 +28,8 @@ class Account extends Component {
         </div>
 
         <Place central_button={central_button}
-               insertPlace={this.props.insertPlace}/>
+               insertPlace={this.props.insertPlace}
+               default_place_query={this.props.default_place_query}/>
 
         <div className="row">
           <div className={central_button}>

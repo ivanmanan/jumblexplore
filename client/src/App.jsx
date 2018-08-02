@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from './sidebar/Sidebar';
 import Maps from './Maps';
 
+const DEFAULT_PLACE_QUERY = 'Search for a place in the map';
 
 // Initial Component
 class App extends Component {
@@ -17,13 +18,14 @@ class App extends Component {
       userSearched: '',
       placeSearch: '',
       mapFocus: [34.0407, -118.2468],
-      insertPlace: 'Search for a place in the map',
+      insertPlace: DEFAULT_PLACE_QUERY,
       mapZoom: 2
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
     this.placeSearch = this.placeSearch.bind(this);
+    this.potentialPlace = this.potentialPlace.bind(this);
   }
 
   componentDidMount() {
@@ -85,7 +87,12 @@ class App extends Component {
     }
   }
 
-
+  potentialPlace(place) {
+    console.log(place);
+    this.setState({
+      insertPlace: place.label
+    });
+  }
 
 
 
@@ -100,11 +107,13 @@ class App extends Component {
                    login={this.login} logout={this.logout}
                    register={this.register}
                    placeSearch={this.placeSearch}
-                   insertPlace={this.state.insertPlace}/>
+                   insertPlace={this.state.insertPlace}
+                   default_place_query={DEFAULT_PLACE_QUERY}/>
         </div>
         <Maps mapFocus={this.state.mapFocus}
               mapZoom={this.state.mapZoom}
-              placeSearch={this.state.placeSearch}/>
+              placeSearch={this.state.placeSearch}
+              potentialPlace={this.potentialPlace}/>
       </div>
     );
   }

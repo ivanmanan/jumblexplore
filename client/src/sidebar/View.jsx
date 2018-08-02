@@ -23,7 +23,8 @@ class View extends Component {
           <Account username={this.props.username}
                    logout={this.props.logout}
                    button_box={button_box}
-                   insertPlace={this.props.insertPlace}/>
+                   insertPlace={this.props.insertPlace}
+                   default_place_query={this.props.default_place_query}/>
         );
       case "register":
         return (

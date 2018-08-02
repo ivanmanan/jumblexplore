@@ -12,8 +12,10 @@ class Maps extends Component {
     this.loggedInUser = this.loggedInUser.bind(this);
   }
 
+  // Goes back to parent component App.jsx
+  // Saves potential place for Place.jsx to set Place value
   potentialPlaceSave(place) {
-    console.log(place);
+    this.props.potentialPlace(place);
   }
 
   loggedInUser(place) {
