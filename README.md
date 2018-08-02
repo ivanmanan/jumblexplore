@@ -58,6 +58,7 @@ Document your travels and share with others.
   this POST request
 
 ### Current Database
+<pre>
 +------------------------------+<br/>
 |**User_Login**                |<br/>
 +------------------------------+<br/>
@@ -69,7 +70,7 @@ Document your travels and share with others.
 +------------------------------+<br/>
 |Password                      |<br/>
 +------------------------------+<br/>
-
+</pre>
 Ideally, User_ID and User_Places_ID are identical.
 
 +------------------------------+
