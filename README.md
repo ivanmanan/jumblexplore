@@ -60,7 +60,7 @@ Document your travels and share with others.
 ### Current Database
 <pre>
 +------------------------------+
-|**User_Login**                |
+|</pre>**User_Login**<pre>                |
 +------------------------------+
 |User_ID                       |
 +------------------------------+
