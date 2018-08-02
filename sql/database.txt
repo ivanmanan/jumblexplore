@@ -1,26 +1,31 @@
 Current Database
 
 +------------------------------+
-|**User_login**                |
+|**User_Login**                |
 +------------------------------+
 |User_ID                       |
 +------------------------------+
 |Username                      |
 +------------------------------+
+|Email                         |
++------------------------------+
 |Password                      |
 +------------------------------+
-|User_Places_ID (FK)           |
+|User_Places_ID (Foreign Key)  |
 +------------------------------+
 
 Ideally, User_ID and User_Places_ID are identical.
-Passwords should be hashed.
 
 +------------------------------+
-|**User_Places_ID**            |
+|**User_Places**               |
 +------------------------------+
 |User_Places_ID                |
 +------------------------------+
-|Pace_ID (FK)                  |
+|Place_ID (Foreign Key)        |
++------------------------------+
+|Date_Record                   |
++------------------------------+
+|Caption                       |
 +------------------------------+
 
 There can be duplicate User_Places_ID's, but multiple Place_ID's.
@@ -31,4 +36,8 @@ There can be duplicate User_Places_ID's, but multiple Place_ID's.
 |Place_ID                      |
 +------------------------------+
 |Place                         |
++------------------------------+
+|Latitude                      |
++------------------------------+
+|Longitude                     |
 +------------------------------+

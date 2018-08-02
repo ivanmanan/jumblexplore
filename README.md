@@ -20,7 +20,7 @@ Document your travels and share with others.
 │   ├── Sidebar.jsx<br/>
 │   ├── View.jsx<br/>
 │   └── **views**<br/>
-│       ├── account<br/>
+│       ├── **account**<br/>
 │       │   ├── Account.jsx<br/>
 │       │   └── Place.jsx<br/>
 │       ├── Login.jsx<br/>
@@ -31,7 +31,7 @@ Document your travels and share with others.
 * Map coordinates should be saved per user
 * Registration -- user accounts must have their passwords hashed;
   must prevent having duplicate usernames and emails registered
-* Be able to search for user
+* Be able to search for user by username
 * Generate paths between each destination sorted by time
 * Install web security features e.g. Prevent SQL injections on sign
   in forms
@@ -41,6 +41,13 @@ Document your travels and share with others.
 * Nice to have: implement email client
 * React.js build distribution should be used and server.js should be
   deploying the build
+* Make sure username is NOT case sensitive - e.g. "ivan" and "Ivan"
+  are same usernames
+* If entry gets deleted from database, then sessionStorage cache
+  must be cleared immediately, otherwise this will cause bugs
+  To replicate: Create account "ivan", then delete the "ivan"
+  account from the database, and refresh the browser - "ivan" will
+  still exist. Maybe I need another authorization
 
 ### Current Database
 See [current database implementation](https://github.com/ivanmanan/Travel-Share/blob/master/sql/database.txt).

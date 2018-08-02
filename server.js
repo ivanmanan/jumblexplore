@@ -43,7 +43,9 @@ connection.connect(function(err) {
 /////////////////////////////////////////////////////////////////////
 // HTTP Methods
 
-// Verify login credentials
+// TODO: Also run query of all the places the user saved such that
+// the front-end can render that onto the map
+// QUERY: Verify login credentials
 app.post('/login', (req, res) => {
 
   console.log("Running query...");
@@ -54,7 +56,7 @@ app.post('/login', (req, res) => {
   // This same SQL injection check must be made for registration
   // I need to unhash passwords here
 
-  connection.query('SELECT * FROM UserLogin WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
+  connection.query('SELECT * FROM User_Login WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
     if (err) throw err;
     else {
       // Check if one entry in SQL database shows up correctly
@@ -78,22 +80,23 @@ app.post('/login', (req, res) => {
   });
 });
 
-// Registration
-// I also need to hash passwords here
+// QUERY: Registration
+// TODO: Need to hash passwords here
 app.post('/register', (req, res) => {
 
   console.log("Running query...");
   var userinfo = [];
 
-  connection.query('INSERT INTO UserLogin (Username, Password, User_Places_ID) VALUES ("' + req.body.username + '", "' + req.body.password + '", NULL);', (err, response, fields) => {
+  connection.query('INSERT INTO User_Login (Username, Email, Password, User_Places_ID) VALUES ("' + req.body.username + '", "' + req.body.email + '", "' + req.body.password + '", NULL);', (err, response, fields) => {
 
+    // TODO: Check if username or email is case sensitive in the database -- e.g. "ivan" is the same as "Ivan"
     // If duplicates exist
     try {
       if (err) throw err;
       else {
         console.log(req.body.username + " has registered an account.\n");
 
-        connection.query('SELECT * FROM UserLogin WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
+        connection.query('SELECT * FROM User_Login WHERE Username="' + req.body.username + '" and Password="' + req.body.password + '";', (err, result, fields) => {
           if (err) throw err;
           else {
             userinfo.push({
@@ -108,7 +111,7 @@ app.post('/register', (req, res) => {
       }
     }
     catch (err) {
-      console.log("The username '" + req.body.username + "' attempting to register already exists in the database.")
+      console.log("The username or email '" + req.body.username + "' attempting to register already exists in the database.")
       res.contentType('application/json');
       res.send(JSON.stringify(userinfo));
     }
@@ -119,10 +122,24 @@ app.post('/register', (req, res) => {
 
 });
 
+// QUERY: User saves a place to both database and into account
+// Try to insert place, regardless if its duplicate
+// If duplicate, then proceed to next step
+app.post('/place', (req, res) => {
+
+  // TODO: if User_Places_ID is NULL, then update it with ALTER query
+
+  console.log("Running query...");
+
+  connection.query('INSERT INTO Places (Place, Latitude, Longitude) VALUES ("' + req.body.place + '", "' + req.body.latitude + '", "' + req.body.longitude + '");', (err, response, fields) => {
 
 
+  });
+});
 
 
+// QUERY: Search for a user and all the places they saved
+// TODO: All of the places must be rendered on the map
 
 
 

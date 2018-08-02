@@ -1,4 +1,4 @@
-SELECT * FROM UserLogin;
+SELECT * FROM User_Login;
 
 SELECT * FROM User_Places;
 

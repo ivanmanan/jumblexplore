@@ -17,7 +17,7 @@ class Place extends Component {
       console.log(this.refs.new_date.value);
       console.log(this.refs.new_caption.value);
 
-
+      // TODO: Run the sql query here that saves the place to the user
 
     }
     else {
