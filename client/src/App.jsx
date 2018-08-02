@@ -16,7 +16,9 @@ class App extends Component {
       user_id: sessionStorage.getItem('user_id'),
       userSearched: '',
       placeSearch: '',
-      mapFocus: [34.0407, -118.2468]
+      mapFocus: [34.0407, -118.2468],
+      insertPlace: 'Search for a place in the map',
+      mapZoom: 2
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -69,11 +71,18 @@ class App extends Component {
   // Place.jsx -> Account.jsx -> View.jsx -> Sidebar.jsx -> App.jsx
   // App.jsx   -> Maps.jsx
   placeSearch(query) {
-    this.setState({
-      placeSearch: query,
-      mapFocus: [query[0].y, query[0].x]
-    });
-
+    if (query.length !== 0) {
+      this.setState({
+        placeSearch: query,
+        mapFocus: [query[0].y, query[0].x],
+        mapZoom: 4
+      });
+    }
+    else {
+      this.setState({
+        placeSearch: '',
+      });
+    }
   }
 
 
@@ -90,9 +99,11 @@ class App extends Component {
                    username={this.state.username}
                    login={this.login} logout={this.logout}
                    register={this.register}
-                   placeSearch={this.placeSearch}/>
+                   placeSearch={this.placeSearch}
+                   insertPlace={this.state.insertPlace}/>
         </div>
         <Maps mapFocus={this.state.mapFocus}
+              mapZoom={this.state.mapZoom}
               placeSearch={this.state.placeSearch}/>
       </div>
     );

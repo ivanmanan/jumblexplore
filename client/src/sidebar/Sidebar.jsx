@@ -35,7 +35,8 @@ class Sidebar extends Component {
         col-xs-8">
         <Omnibox revealSidebar={this.revealSidebar}
                  revealSearchbar={this.revealSearchbar}
-                 open_search={this.state.open_search}/>
+                 open_search={this.state.open_search}
+                 placeSearch={this.props.placeSearch}/>
         <Collapse id="Sidebar" in={this.state.open_menu}>
           <div>
             <View view={this.props.view}
@@ -44,7 +45,7 @@ class Sidebar extends Component {
                   login={this.props.login}
                   logout={this.props.logout}
                   register={this.props.register}
-                  placeSearch={this.props.placeSearch}/>
+                  insertPlace={this.props.insertPlace}/>
           </div>
         </Collapse>
       </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Place from './Place';
 
-const central_button = "text-center col-md-5 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"
+const central_button = "text-center col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"
 
 class Account extends Component {
 
@@ -28,7 +28,7 @@ class Account extends Component {
         </div>
 
         <Place central_button={central_button}
-               placeSearch={this.props.placeSearch}/>
+               insertPlace={this.props.insertPlace}/>
 
         <div className="row">
           <div className={central_button}>

@@ -6,26 +6,43 @@ import { Map, TileLayer, Marker, Popup, ZoomControl } from './leaflet';
 class Maps extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      zoom: 2
-    };
     this.displayPlacesSearched = this.displayPlacesSearched.bind(this);
     this.displayPlacesSaved = this.displayPlacesSaved.bind(this);
+    this.potentialPlaceSave = this.potentialPlaceSave.bind(this);
+    this.loggedInUser = this.loggedInUser.bind(this);
+  }
+
+  potentialPlaceSave(place) {
+    console.log(place);
+  }
+
+  loggedInUser(place) {
+    // If logged in, return "Insert Place" button
+    if (sessionStorage.getItem('loggedIn')) {
+      return (
+        <button id="insert-place-button"
+                onClick={() => this.potentialPlaceSave(place)}>
+          <p>Insert Place</p>
+        </button>
+      );
+    }
   }
 
   // Return Marker components of all possible addresses
-  // This will need to be mapped
   displayPlacesSearched() {
     if (this.props.placeSearch) {
       const placeSearch = this.props.placeSearch;
-      console.log(placeSearch);
-
 
       return placeSearch.map((place, id) => (
         <Marker key={id} position={[place.y, place.x]}>
           <Popup>
             <span>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              {place.label}
+
+              <div className="text-center">
+                {this.loggedInUser(place)}
+              </div>
+
             </span>
           </Popup>
         </Marker>
@@ -36,13 +53,13 @@ class Maps extends Component {
   // Queried from database
   // TODO: Redraw database schema
   displayPlacesSaved() {
-    console.log("This does nothing right now!");
+    console.log("Does not reveal places saved yet!");
   }
 
   render() {
     return (
       <div className="Maps-container">
-        <Map center={this.props.mapFocus} zoom={this.state.zoom} zoomControl={false} minZoom={2} maxZoom={14} worldCopyJump={true}>
+        <Map center={this.props.mapFocus} zoom={this.props.mapZoom} zoomControl={false} minZoom={2} maxZoom={14} worldCopyJump={true}>
 
           <TileLayer
             attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"

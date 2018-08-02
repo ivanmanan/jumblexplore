@@ -5,6 +5,13 @@ import SearchBar from './SearchBar';
 import { Collapse } from 'react-bootstrap';
 
 class Omnibox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // TODO: Be able to change to Search User by selction in sidebar
+      placeholder: "Search Place"
+    };
+  }
 
   render() {
     return (
@@ -23,7 +30,8 @@ class Omnibox extends Component {
         </Button>
         <Collapse in={this.props.open_search} id="Search">
           <div>
-            <SearchBar/>
+            <SearchBar placeholder={this.state.placeholder}
+                       placeSearch={this.props.placeSearch}/>
           </div>
         </Collapse>
       </div>

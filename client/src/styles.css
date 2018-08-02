@@ -13,6 +13,10 @@ body {
     padding: 0;
 }
 
+textarea {
+  resize: none;
+}
+
 /* Sidebar */
 .Sidebar-container {
     margin-top: calc(4px + 4vw);
@@ -101,6 +105,10 @@ body {
     background-color: snow;
 }
 
+#Search-Place {
+    cursor: default;
+}
+
 /* Login-Register */
 .Login-Register {
     margin-top: calc(2px + 2vw);
@@ -141,3 +149,17 @@ body {
     width: 100%;
 }
 
+#insert-place-button {
+    margin-top: calc(2px + 2vw);
+    margin-bottom: calc(2px + 2vw);
+    width: 80%;
+    height: 30%;
+    background-color: ivory;
+    border-radius: 4px;
+    border: 2px solid darkgray;
+    line-height: calc(1.5vw + 2.5vh);
+}
+
+#insert-place-button p {
+    font-size: calc(2vw);
+}
