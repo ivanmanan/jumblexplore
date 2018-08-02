@@ -10,22 +10,22 @@ Document your travels and share with others.
 
 ### Front-End File Structure
 ├── App.jsx<br/>
-├── index.js
-├── **leaflet**
-├── Maps.jsx
-├── **sidebar**
-│   ├── **omnibox**
-│   │   ├── Omnibox.jsx
-│   │   └── SearchBar.jsx
-│   ├── Sidebar.jsx
-│   ├── View.jsx
-│   └── **views**
-│       ├── account
-│       │   ├── Account.jsx
-│       │   └── Place.jsx
-│       ├── Login.jsx
-│       └── Register.jsx
-└── styles.css
+├── index.js<br/>
+├── **leaflet**<br/>
+├── Maps.jsx<br/>
+├── **sidebar**<br/>
+│   ├── **omnibox**<br/>
+│   │   ├── Omnibox.jsx<br/>
+│   │   └── SearchBar.jsx<br/>
+│   ├── Sidebar.jsx<br/>
+│   ├── View.jsx<br/>
+│   └── **views**<br/>
+│       ├── account<br/>
+│       │   ├── Account.jsx<br/>
+│       │   └── Place.jsx<br/>
+│       ├── Login.jsx<br/>
+│       └── Register.jsx<br/>
+└── styles.css<br/>
 
 ### Needed Installments
 * Map coordinates should be saved per user
