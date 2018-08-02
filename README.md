@@ -28,11 +28,13 @@ Document your travels and share with others.
 └── styles.css<br/>
 
 ### Needed Installments
-* Map coordinates should be saved per user
+* Configure raspberry pi with the default script to host the project
+  when it gets turned on
+* Must refactor queries to all do JOIN queries
 * Registration -- user accounts must have their passwords hashed;
-  must prevent having duplicate usernames and emails registered
+  must flash messages if registering duplicate usernames and emails
 * Be able to search for user by username
-* Generate paths between each destination sorted by time
+* Generate paths/lines between each destination sorted by date
 * Install web security features e.g. Prevent SQL injections on sign
   in forms
 * Install user settings -- Change passwords and be able to delete
@@ -51,9 +53,50 @@ Document your travels and share with others.
 * When user logs out, and then creates a new account, query runs
   from previous user account instead of the new account after
   registration. Need to fix logout
+* Can "Insert Place" button to "Update Place" button when user is
+  editing the same place they already saved; also need to install
+  this POST request
 
 ### Current Database
-See [current database implementation](https://github.com/ivanmanan/Travel-Share/blob/master/sql/database.txt).
++------------------------------+
+|**User_Login**                |
++------------------------------+
+|User_ID                       |
++------------------------------+
+|Username                      |
++------------------------------+
+|Email                         |
++------------------------------+
+|Password                      |
++------------------------------+
+
+Ideally, User_ID and User_Places_ID are identical.
+
++------------------------------+
+|**User_Places**               |
++------------------------------+
+|User_Places_ID                |
++------------------------------+
+|Place_ID (Foreign Key)        |
++------------------------------+
+|Date_Record                   |
++------------------------------+
+|Caption                       |
++------------------------------+
+
+There can be duplicate User_Places_ID's, but multiple Place_ID's.
+
++------------------------------+
+|**Places**                    |
++------------------------------+
+|Place_ID                      |
++------------------------------+
+|Place                         |
++------------------------------+
+|Latitude                      |
++------------------------------+
+|Longitude                     |
++------------------------------+
 
 ### Installation
 Instructions to run Travel Share on local machine. Instructions will be similar to [Family Watch](https://github.com/ivanmanan/Family-Watch/blob/master/README.md).

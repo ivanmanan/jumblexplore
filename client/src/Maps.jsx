@@ -55,10 +55,26 @@ class Maps extends Component {
   // Queried from database
   // Retrieved from App.jsx
   displayPlacesSaved() {
-    console.log("Does not reveal places saved yet!");
-
-    // Do check on saved places whether they exist here
     console.log(this.props.places);
+    if (this.props.places.length !== 0) {
+      const places = this.props.places;
+      return places.map((place, id) => (
+        <Marker key={id} position={[place.Latitude, place.Longitude]}>
+          <Popup>
+            <span>
+              {place.place}
+              <div className="text-center">
+                <p>
+                  {place.Date_Record}
+                  <br/>
+                  {place.Caption}
+                </p>
+              </div>
+            </span>
+          </Popup>
+        </Marker>
+      ));
+    }
   }
 
   render() {
