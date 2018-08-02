@@ -53,9 +53,12 @@ class Maps extends Component {
   }
 
   // Queried from database
-  // TODO: Redraw database schema
+  // Retrieved from App.jsx
   displayPlacesSaved() {
     console.log("Does not reveal places saved yet!");
+
+    // Do check on saved places whether they exist here
+    console.log(this.props.places);
   }
 
   render() {

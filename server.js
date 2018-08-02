@@ -139,7 +139,7 @@ app.post('/place', (req, res) => {
 
   console.log("Running query...");
   const query_one = 'INSERT INTO Places (Place, Latitude, Longitude) VALUES ("' + req.body.place + '", "' + req.body.latitude + '", "' + req.body.longitude + '");';
-  console.log(query_one + "\n");
+  console.log(query_one);
 
   connection.query(query_one, (err, response, fields) => {
     try {
@@ -148,7 +148,7 @@ app.post('/place', (req, res) => {
         // Query successfully
         // This means new place was inserted
         // Set the new Place_ID for the User_Places_ID foreign key
-        const query_two = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + res.insertId + '", "' + req.body.date + '", "' + req.body.caption + '");';
+        const query_two = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + response.insertId + '", "' + req.body.date + '", "' + req.body.caption + '");';
         console.log(query_two);
 
         connection.query(query_two, (err_two, result, fields_two) => {
@@ -168,14 +168,14 @@ app.post('/place', (req, res) => {
     catch (err) {
       // If place exists, then find that place_id
       const query_three = 'SELECT * FROM Places WHERE Place="' + req.body.place + '";';
-      console.log(query_three + "\n");
+      console.log(query_three);
 
       connection.query(query_three, (err_two, result, fields_two) => {
         try {
           if (err_two) throw err_two;
           else {
 
-            const query_four = 'UPDATE User_Places SET User_Places_ID="' + req.body.user_id + '", Place_ID="' + result[0].Place_ID + '", Date_Record="' + req.body.date + '", Caption="' + req.body.caption + '" WHERE User_Places_ID="' + req.body.user_id + '" AND Place_ID="' + result[0].Place_ID + '";';
+            const query_four = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + result[0].Place_ID + '", "' + req.body.date + '", "' + req.body.caption + '");';
             console.log(query_four);
 
             connection.query(query_four, (err_three, results, fields_three) => {
@@ -200,10 +200,38 @@ app.post('/place', (req, res) => {
 });
 
 
-// QUERY: Search for a user and all the places they saved
-// TODO: All of the places must be rendered on the map
+// QUERY: Search for all the places the user saved
+app.post('/saved', (req, res) => {
 
+  console.log("Running query...");
+  const query = 'SELECT Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + req.body.user_id + '";';
+  console.log(query);
 
+  connection.query(query, (err, savedPlaces, fields) => {
+    try {
+      if (err) throw err;
+      console.log(req.body.username + " has retrieved all saved places!\n");
+      res.contentType('application/json');
+      res.send(JSON.stringify(savedPlaces));
+    }
+    catch (err) {
+      console.log("ERROR: " + req.body.username + " has an error in retrieving all their saved places!\n");
+
+      // TODO: Test that this actually works -- see incorrect login
+      const empty = [];
+      res.contentType('application/json');
+      res.send(JSON.stringify(empty));
+    }
+  });
+});
+
+// QUERY: Update saved place
+app.post('/update', (req, res) => {
+
+  // result[0].Place_ID can be retrieved from 'SELECT * ...' query
+  const query = 'UPDATE User_Places SET User_Places_ID="' + req.body.user_id + '", Place_ID="' + 0 + '", Date_Record="' + req.body.date + '", Caption="' + req.body.caption + '" WHERE User_Places_ID="' + req.body.user_id + '" AND Place_ID="' + 0 + '";';
+  console.log(query);
+});
 
 /////////////////////////////////////////////////////////////////////
 // Start Application

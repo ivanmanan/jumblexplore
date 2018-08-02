@@ -33,8 +33,10 @@ class Account extends Component {
                insertLat={this.props.insertLat}
                insertLon={this.props.insertLon}
                insertPlace={this.props.insertPlace}
+               placeSearch={this.props.placeSearch}
                default_place_query={this.props.default_place_query}
-               displaySavedPlaces={this.props.displaySavedPlaces}/>
+               displaySavedPlaces={this.props.displaySavedPlaces}
+               revealSidebar={this.props.revealSidebar}/>
 
         <div className="row">
           <div className={central_button}>

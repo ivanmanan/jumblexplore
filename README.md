@@ -48,6 +48,9 @@ Document your travels and share with others.
   To replicate: Create account "ivan", then delete the "ivan"
   account from the database, and refresh the browser - "ivan" will
   still exist. Maybe I need another authorization
+* When user logs out, and then creates a new account, query runs
+  from previous user account instead of the new account after
+  registration. Need to fix logout
 
 ### Current Database
 See [current database implementation](https://github.com/ivanmanan/Travel-Share/blob/master/sql/database.txt).

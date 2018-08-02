@@ -15,6 +15,7 @@ class App extends Component {
       loggedIn: false,
       username: sessionStorage.getItem('username'),
       user_id: sessionStorage.getItem('user_id'),
+      places: [],
       userSearched: '',
       placeSearch: '',
       mapFocus: [34.0407, -118.2468],
@@ -32,8 +33,23 @@ class App extends Component {
   }
 
   // Query that retrieves saved places
+  // TODO: Make new state with all saved places
+  // This will be passed as a prop for the map to display
   displaySavedPlaces() {
     console.log("Hello from App.jsx!");
+    fetch('/saved', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        user_id: this.state.user_id,
+        username: this.state.username
+      })
+    })
+      .then(res => res.json())
+      .then(places => {this.setState({ places: places })});
   }
 
   componentDidMount() {
@@ -85,8 +101,9 @@ class App extends Component {
     });
   }
 
-  // Place.jsx -> Account.jsx -> View.jsx -> Sidebar.jsx -> App.jsx
-  // App.jsx   -> Maps.jsx
+  // Searchbar.jsx -> App.jsx
+  // Place.jsx     -> App.jsx
+  // App.jsx       -> Maps.jsx
   placeSearch(query) {
     if (query.length !== 0) {
       this.setState({
@@ -120,18 +137,19 @@ class App extends Component {
                    username={this.state.username}
                    login={this.login} logout={this.logout}
                    register={this.register}
-                   placeSearch={this.placeSearch}
                    user_id={this.state.user_id}
                    insertPlace={this.state.insertPlace}
                    insertLat={this.state.insertLat}
                    insertLon={this.state.insertLon}
+                   placeSearch={this.placeSearch}
                    default_place_query={DEFAULT_PLACE_QUERY}
                    displaySavedPlaces={this.displaySavedPlaces}/>
         </div>
         <Maps mapFocus={this.state.mapFocus}
               mapZoom={this.state.mapZoom}
               placeSearch={this.state.placeSearch}
-              potentialPlace={this.potentialPlace}/>
+              potentialPlace={this.potentialPlace}
+              places={this.state.places}/>
       </div>
     );
   }

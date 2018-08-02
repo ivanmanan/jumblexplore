@@ -9,6 +9,13 @@ class Place extends Component {
     this.insertPlace = this.insertPlace.bind(this);
   }
 
+  // TODO: Change "Insert Place" button to "Update Place"
+  // if the place is already saved for the user
+  // This involves updating the state once again after
+  // the save place query runs successfully
+  // Also update the place if the user selects a marker
+  // on the map
+
   insertPlace(e) {
     e.preventDefault();
 
@@ -31,6 +38,8 @@ class Place extends Component {
       })
         .then((data) => {
           // Clear map and display all of user's saved places
+          this.props.placeSearch("");
+          this.props.revealSidebar();
           this.props.displaySavedPlaces();
         });
     }
