@@ -5,6 +5,7 @@ Document your travels and share with others.
 ## Content
 * Front-End File Structure
 * Needed Installments
+* Future Installments
 * Current Database
 * Installation
 
@@ -28,34 +29,31 @@ Document your travels and share with others.
 └── styles.css<br/>
 
 ### Needed Installments
-* Configure raspberry pi with the default script to host the project
-  when it gets turned on
-* Must refactor queries to all do JOIN queries
-* Registration -- user accounts must have their passwords hashed;
+* FEATURE: Insert Place on marker should automatically just add the
+  place into the database; the sidebar will be able to update that
+  place with proper caption and date
+* FEATURE: Registration -- user accounts must have their passwords hashed;
   must flash messages if registering duplicate usernames and emails
-* Be able to search for user by username
-* Generate paths/lines between each destination sorted by date
-* Install web security features e.g. Prevent SQL injections on sign
-  in forms
-* Install user settings -- Change passwords and be able to delete
-  account
-* Tools -- Edit and delete saved map coordinates
-* Nice to have: implement email client
-* React.js build distribution should be used and server.js should be
-  deploying the build
-* Make sure username is NOT case sensitive - e.g. "ivan" and "Ivan"
-  are same usernames
-* If entry gets deleted from database, then sessionStorage cache
+  or info containing special characters
+* FEATURE: Be able to search for user by username
+* FEATURE: Generate paths/lines between each destination sorted by date
+* FEATURE: Install user settings -- Change passwords and be able to
+  delete account
+* FEATURE: Tools to edit and delete saved map coordinates
+* FEATURE: Implement email client
+* FEATURE: Can "Insert Place" button to "Update Place" button when user is
+  editing the same place they already saved; also need to install
+  this POST request
+* BUG: If entry gets deleted from database, then sessionStorage cache
   must be cleared immediately, otherwise this will cause bugs
   To replicate: Create account "ivan", then delete the "ivan"
   account from the database, and refresh the browser - "ivan" will
   still exist. Maybe I need another authorization
-* When user logs out, and then creates a new account, query runs
+* BUG: When user logs out, and then creates a new account, query runs
   from previous user account instead of the new account after
   registration. Need to fix logout
-* Can "Insert Place" button to "Update Place" button when user is
-  editing the same place they already saved; also need to install
-  this POST request
+* Configure raspberry pi with the default script to host the project
+  when it gets turned on - must use optimized React package
 
 ### Current Database
 Ideally, User_ID and User_Places_ID are identical.

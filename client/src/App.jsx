@@ -109,7 +109,7 @@ class App extends Component {
       this.setState({
         placeSearch: query,
         mapFocus: [query[0].y, query[0].x],
-        mapZoom: 4
+        mapZoom: 10
       });
     }
     else {
