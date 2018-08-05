@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup, ZoomControl } from './leaflet';
-
-// TODO: Need to test if you search for a place you already saved...
-//       so what would exactly happen? Potential bug!
+import { Map, TileLayer, Marker, Popup, ZoomControl } from './react-leaflet';
 
 class Maps extends Component {
   constructor(props) {
@@ -10,6 +7,7 @@ class Maps extends Component {
     this.displayPlacesSearched = this.displayPlacesSearched.bind(this);
     this.displayPlacesSaved = this.displayPlacesSaved.bind(this);
     this.savePlace = this.savePlace.bind(this);
+    this.updatePlace = this.updatePlace.bind(this);
     this.loggedInUser = this.loggedInUser.bind(this);
   }
 
@@ -39,18 +37,19 @@ class Maps extends Component {
 
         // Goes back to parent component App.jsx
         // Saves place for Place.jsx to edit Place value
-        this.props.editPlace(place, place_id);
-
-        // TODO: Change button to "update Place" and display
-        // sidebar collapsible when clicked
+        this.props.editPlace(place.label, place_id, '', '');
       });
+  }
+
+  updatePlace(place) {
+    this.props.editPlace(place.Place, place.Place_ID, place.Date_Record, place.Caption);
   }
 
   loggedInUser(place) {
     // If logged in, return "Insert Place" button
     if (sessionStorage.getItem('loggedIn')) {
       return (
-        <button id="insert-place-button"
+        <button id="place-button"
                 onClick={() => this.savePlace(place)}>
           <p>Insert Place</p>
         </button>
@@ -61,18 +60,9 @@ class Maps extends Component {
   // Return Marker components of all possible addresses
   displayPlacesSearched() {
     if (this.props.search) {
-
-      const redMarker = L.ExtraMarkers.icon({
-        icon: 'fa-coffee',
-        markerColor: 'red',
-        shape: 'square',
-        prefix: 'fa'
-      });
-
-
       const search = this.props.search;
       return search.map((place, id) => (
-        <Marker key={id} position={[place.y, place.x]} icon={redMarker}>
+        <Marker key={id} position={[place.y, place.x]}>
           <Popup>
             <span>
               {place.label}
@@ -95,13 +85,17 @@ class Maps extends Component {
         <Marker key={id} position={[place.Latitude, place.Longitude]}>
           <Popup>
             <span>
-              {place.place}
+              {place.Place}
               <div className="text-center">
                 <p>
                   {place.Date_Record}
                   <br/>
                   {place.Caption}
                 </p>
+                <button id="place-button"
+                        onClick={() => this.updatePlace(place)}>
+                  <p>Update Place</p>
+                </button>
               </div>
             </span>
           </Popup>

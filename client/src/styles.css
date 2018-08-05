@@ -95,10 +95,6 @@ textarea {
     background-color: snow;
 }
 
-#insert-place-button {
-    margin-bottom: -1vh;
-}
-
 #New-Details {
     width: 100%;
     border-color: green;
@@ -149,9 +145,9 @@ textarea {
     width: 100%;
 }
 
-#insert-place-button {
+#place-button {
     margin-top: calc(2px + 2vw);
-    margin-bottom: calc(2px + 2vw);
+    margin-bottom: calc(2px + 2vw - 1vh);
     width: 80%;
     height: 30%;
     background-color: ivory;
@@ -160,6 +156,6 @@ textarea {
     line-height: calc(1.5vw + 2.5vh);
 }
 
-#insert-place-button p {
+#place-button p {
     font-size: calc(2vw);
 }

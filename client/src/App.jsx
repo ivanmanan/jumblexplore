@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './sidebar/Sidebar';
-import Maps from './Maps';
+import Maps from './map/Maps';
 
 const DEFAULT_PLACE_QUERY = 'Search for a place in the map';
 
@@ -19,6 +19,8 @@ class App extends Component {
       mapFocus: [34.0407, -118.2468],
       editPlace: DEFAULT_PLACE_QUERY,
       editPlace_id: 0,
+      editDate: '',
+      editCaption: '',
       mapZoom: 2
     };
     this.login = this.login.bind(this);
@@ -39,7 +41,7 @@ class App extends Component {
       method: 'GET'
     })
       .then(res => res.json())
-      .then(places => {this.setState({ places: places})});
+      .then(places => {this.setState({places: places})});
   }
 
   componentDidMount() {
@@ -107,10 +109,12 @@ class App extends Component {
     }
   }
 
-  editPlace(place, place_id) {
+  editPlace(place_name, place_id, date, caption) {
     this.setState({
-      editPlace: place.label,
-      editPlace_id: place_id
+      editPlace: place_name,
+      editPlace_id: place_id,
+      editDate: date,
+      editCaption: caption
     });
   }
 
@@ -128,6 +132,8 @@ class App extends Component {
                    search={this.state.search}
                    editPlace={this.state.editPlace}
                    editPlace_id={this.state.editPlace_id}
+                   editDate={this.state.editDate}
+                   editCaption={this.state.editCaption}
                    default_place_query={DEFAULT_PLACE_QUERY}
                    displaySavedPlaces={this.displaySavedPlaces}/>
         </div>

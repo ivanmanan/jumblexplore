@@ -29,21 +29,13 @@ Document your travels and share with others.
 └── styles.css<br/>
 
 ### Needed Installments
-* FEATURE: Insert Place on marker should automatically just add the
-  place into the database; the sidebar will be able to update that
-  place with proper caption and date
+* FEATURE: Generate paths/lines between each destination sorted by
+  date
+* FEATURE: Button to delete place in sidebar + make this a DELETE
+  HTTP method
 * FEATURE: Registration -- user accounts must have their passwords hashed;
   must flash messages if registering duplicate usernames and emails
   or info containing special characters
-* FEATURE: Be able to search for user by username
-* FEATURE: Generate paths/lines between each destination sorted by date
-* FEATURE: Install user settings -- Change passwords and be able to
-  delete account
-* FEATURE: Tools to edit and delete saved map coordinates
-* FEATURE: Implement email client
-* FEATURE: Can "Insert Place" button to "Update Place" button when user is
-  editing the same place they already saved; also need to install
-  this POST request
 * BUG: If entry gets deleted from database, then sessionStorage cache
   must be cleared immediately, otherwise this will cause bugs
   To replicate: Create account "ivan", then delete the "ivan"
@@ -51,9 +43,20 @@ Document your travels and share with others.
   still exist. Maybe I need another authorization
 * BUG: When user logs out, and then creates a new account, query runs
   from previous user account instead of the new account after
-  registration. Need to fix logout
+  registration. Need to fix logout or use different authorization setting
 * Configure raspberry pi with the default script to host the project
   when it gets turned on - must use optimized React package
+* BUG: When user searches for a place that has already been saved, it
+  still displays the "Insert Place" button instead of "Update Place"
+* FEATURE: Be able to search for user by username --- sidebar should
+  have a button to alternate between searching places and searching users
+* FEATURE: Install user settings -- Change passwords and be able to
+  delete account
+* FEATURE: Implement email client
+* FEATURE: Have distinct markers for saved places and searched
+  places -- push this back because right now it requires to import
+  native Leaflet library since it is not built-in for the
+  React-Leaflet library
 
 ### Current Database
 Ideally, User_ID and User_Places_ID are identical.

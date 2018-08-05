@@ -62,7 +62,7 @@ class Place extends Component {
               <h4>Date</h4>
             </div>
             <div className={place_field_input}>
-              <input type="date" ref="new_date"/>
+              <input type="date" ref="new_date" value={this.props.editDate}/>
             </div>
           </div>
 
@@ -72,7 +72,7 @@ class Place extends Component {
             </div>
             <div className={place_field_input}>
               <textarea id="New-Details" ref="new_caption" rows={2}
-                        maxLength={144}/>
+                        maxLength={144} value={this.props.editCaption}/>
             </div>
           </div>
 

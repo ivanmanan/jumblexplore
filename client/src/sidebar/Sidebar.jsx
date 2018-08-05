@@ -49,6 +49,8 @@ class Sidebar extends Component {
                   search={this.props.search}
                   editPlace={this.props.editPlace}
                   editPlace_id={this.props.editPlace_id}
+                  editDate={this.props.editDate}
+                  editCaption={this.props.editCaption}
                   default_place_query={this.props.default_place_query}
                   revealSidebar={this.revealSidebar}
                   displaySavedPlaces={this.props.displaySavedPlaces}/>

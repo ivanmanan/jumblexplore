@@ -243,7 +243,7 @@ app.get('/place/:user_id/:username', (req, res) => {
   const username = req.params.username;
 
   console.log("Running query...");
-  const query = 'SELECT Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
+  const query = 'SELECT User_Places.Place_ID, Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
   console.log(query);
 
   connection.query(query, (err, savedPlaces, fields) => {
