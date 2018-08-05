@@ -30,10 +30,9 @@ class Account extends Component {
         <Place central_button={central_button}
                username={this.props.username}
                user_id={this.props.user_id}
-               insertLat={this.props.insertLat}
-               insertLon={this.props.insertLon}
-               insertPlace={this.props.insertPlace}
-               placeSearch={this.props.placeSearch}
+               editPlace={this.props.editPlace}
+               editPlace_id={this.props.editPlace_id}
+               search={this.props.search}
                default_place_query={this.props.default_place_query}
                displaySavedPlaces={this.props.displaySavedPlaces}
                revealSidebar={this.props.revealSidebar}/>

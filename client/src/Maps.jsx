@@ -1,21 +1,49 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup, ZoomControl } from './leaflet';
 
-// TODO: be able to select the pop-up and change the App.jsx state for selected place, which goes back to insert new place
+// TODO: Need to test if you search for a place you already saved...
+//       so what would exactly happen? Potential bug!
 
 class Maps extends Component {
   constructor(props) {
     super(props);
     this.displayPlacesSearched = this.displayPlacesSearched.bind(this);
     this.displayPlacesSaved = this.displayPlacesSaved.bind(this);
-    this.potentialPlaceSave = this.potentialPlaceSave.bind(this);
+    this.savePlace = this.savePlace.bind(this);
     this.loggedInUser = this.loggedInUser.bind(this);
   }
 
-  // Goes back to parent component App.jsx
-  // Saves potential place for Place.jsx to set Place value
-  potentialPlaceSave(place) {
-    this.props.potentialPlace(place);
+  savePlace(place) {
+    // Submit POST request
+    fetch('/place', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: this.props.username,
+        user_id: this.props.user_id,
+        place: place.label,
+        latitude: place.y,
+        longitude: place.x,
+        date: '',
+        caption: ''
+      })
+    })
+      .then(res => res.json())
+      .then((place_id) => {
+        // Clear map and display all of user's saved places
+        this.props.placeSearch("");
+        this.props.displaySavedPlaces();
+
+        // Goes back to parent component App.jsx
+        // Saves place for Place.jsx to edit Place value
+        this.props.editPlace(place, place_id);
+
+        // TODO: Change button to "update Place" and display
+        // sidebar collapsible when clicked
+      });
   }
 
   loggedInUser(place) {
@@ -23,7 +51,7 @@ class Maps extends Component {
     if (sessionStorage.getItem('loggedIn')) {
       return (
         <button id="insert-place-button"
-                onClick={() => this.potentialPlaceSave(place)}>
+                onClick={() => this.savePlace(place)}>
           <p>Insert Place</p>
         </button>
       );
@@ -32,19 +60,25 @@ class Maps extends Component {
 
   // Return Marker components of all possible addresses
   displayPlacesSearched() {
-    if (this.props.placeSearch) {
-      const placeSearch = this.props.placeSearch;
+    if (this.props.search) {
 
-      return placeSearch.map((place, id) => (
-        <Marker key={id} position={[place.y, place.x]}>
+      const redMarker = L.ExtraMarkers.icon({
+        icon: 'fa-coffee',
+        markerColor: 'red',
+        shape: 'square',
+        prefix: 'fa'
+      });
+
+
+      const search = this.props.search;
+      return search.map((place, id) => (
+        <Marker key={id} position={[place.y, place.x]} icon={redMarker}>
           <Popup>
             <span>
               {place.label}
-
               <div className="text-center">
                 {this.loggedInUser(place)}
               </div>
-
             </span>
           </Popup>
         </Marker>
@@ -55,7 +89,6 @@ class Maps extends Component {
   // Queried from database
   // Retrieved from App.jsx
   displayPlacesSaved() {
-    console.log(this.props.places);
     if (this.props.places.length !== 0) {
       const places = this.props.places;
       return places.map((place, id) => (

@@ -6,42 +6,32 @@ const place_field_input = "Place-Field-Input text-left col-md-6 col-sm-6 col-xs-
 class Place extends Component {
   constructor(props) {
     super(props);
-    this.insertPlace = this.insertPlace.bind(this);
+    this.updatePlace = this.updatePlace.bind(this);
   }
 
-  // TODO: Change "Insert Place" button to "Update Place"
-  // if the place is already saved for the user
-  // This involves updating the state once again after
-  // the save place query runs successfully
-  // Also update the place if the user selects a marker
-  // on the map
-
-  insertPlace(e) {
+  updatePlace(e) {
     e.preventDefault();
-
     if (this.refs.new_place.value !== this.props.default_place_query) {
+      // Submit PUT request
       fetch('/place', {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify({
           username: this.props.username,
           user_id: this.props.user_id,
-          place: this.refs.new_place.value,
-          latitude: this.props.insertLat,
-          longitude: this.props.insertLon,
+          place_id: this.props.editPlace_id,
           date: this.refs.new_date.value,
           caption: this.refs.new_caption.value
         })
       })
-        .then((data) => {
-          // Clear map and display all of user's saved places
-          this.props.placeSearch("");
-          this.props.revealSidebar();
+        .then(() => {
+          // Re-render the map with new saved places
           this.props.displaySavedPlaces();
         });
+
     }
     else {
       // TODO: Flash red error message saying place must be
@@ -53,7 +43,7 @@ class Place extends Component {
   render() {
     return (
       <div className="Place">
-        <form onSubmit={this.insertPlace}>
+        <form onSubmit={this.updatePlace}>
 
           <div className="Place-Field row">
             <div className={place_field_label}>
@@ -63,7 +53,7 @@ class Place extends Component {
 
               <input type="search" ref="new_place" required
                      id="Search-Place" readOnly
-                     value={this.props.insertPlace}/>
+                     value={this.props.editPlace}/>
             </div>
           </div>
 
@@ -89,7 +79,7 @@ class Place extends Component {
           <div className="row">
             <div className={this.props.central_button}>
               <button className="multiuse-button">
-                <p>Insert Place</p>
+                <p>Update Place</p>
               </button>
             </div>
           </div>

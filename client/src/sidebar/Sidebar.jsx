@@ -46,13 +46,12 @@ class Sidebar extends Component {
                   logout={this.props.logout}
                   register={this.props.register}
                   user_id={this.props.user_id}
-                  insertLat={this.props.insertLat}
-                  insertLon={this.props.insertLon}
-                  insertPlace={this.props.insertPlace}
-                  placeSearch={this.props.placeSearch}
+                  search={this.props.search}
+                  editPlace={this.props.editPlace}
+                  editPlace_id={this.props.editPlace_id}
                   default_place_query={this.props.default_place_query}
-                  displaySavedPlaces={this.props.displaySavedPlaces}
-                  revealSidebar={this.revealSidebar}/>
+                  revealSidebar={this.revealSidebar}
+                  displaySavedPlaces={this.props.displaySavedPlaces}/>
           </div>
         </Collapse>
       </div>

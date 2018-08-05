@@ -116,7 +116,6 @@ app.post('/register', (req, res) => {
 
   console.log("Running query...");
   var userinfo = [];
-
   let checkInjection = () => {
     return new Promise((resolve, reject) => {
       if (containsInjection(req.body.username, "regular") ||
@@ -131,21 +130,16 @@ app.post('/register', (req, res) => {
   }
 
   checkInjection().then(() => {
-
     const username = req.body.username.toLowerCase();
-
     const query_one = 'INSERT INTO User_Login (Username, Email, Password) VALUES ("' + username + '", "' + req.body.email + '", "' + req.body.password + '");';
     console.log(query_one);
-
     connection.query(query_one, (err, response, fields) => {
-
       try {
         if (err) throw err;
         else {
           console.log(username + " has registered an account.\n");
-
           const query_two = 'SELECT * FROM User_Login WHERE Username="' + username + '" and Password="' + req.body.password + '";';
-
+          console.log(query_two);
           connection.query(query_two, (err, result, fields) => {
             if (err) throw err;
             else {
@@ -176,19 +170,6 @@ app.post('/register', (req, res) => {
 // Try to insert place, regardless if its duplicate
 // If duplicate, then proceed to next step
 app.post('/place', (req, res) => {
-
-  let checkInjection = () => {
-    return new Promise((resolve, reject) => {
-      if (containsInjection(req.body.caption, "caption")) {
-        reject();
-      }
-      else {
-        resolve();
-      }
-    });
-  }
-
-  checkInjection().then(() => {
     console.log("Running query...");
     const username = req.body.username.toLowerCase();
     const query_one = 'INSERT INTO Places (Place, Latitude, Longitude) VALUES ("' + req.body.place + '", "' + req.body.latitude + '", "' + req.body.longitude + '");';
@@ -201,7 +182,8 @@ app.post('/place', (req, res) => {
           // Query successfully
           // This means new place was inserted
           // Set the new Place_ID for the User_Places_ID foreign key
-          const query_two = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + response.insertId + '", "' + req.body.date + '", "' + req.body.caption + '");';
+          const place_id = response.insertId;
+          const query_two = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + place_id + '", "' + req.body.date + '", "' + req.body.caption + '");';
           console.log(query_two);
 
           connection.query(query_two, (err_two, result, fields_two) => {
@@ -209,7 +191,7 @@ app.post('/place', (req, res) => {
               if (err_two) throw err_two;
               else {
                 console.log(username + " has saved a new place!\n");
-                res.end();
+                res.send(JSON.stringify(place_id));
               }
             }
             catch (err_two) {
@@ -227,14 +209,14 @@ app.post('/place', (req, res) => {
           try {
             if (err_two) throw err_two;
             else {
-
-              const query_four = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + result[0].Place_ID + '", "' + req.body.date + '", "' + req.body.caption + '");';
+              const place_id = result[0].Place_ID;
+              const query_four = 'INSERT INTO User_Places (User_Places_ID, Place_ID, Date_Record, Caption) VALUES ("' + req.body.user_id + '", "' + place_id + '", "' + req.body.date + '", "' + req.body.caption + '");';
               console.log(query_four);
 
               connection.query(query_four, (err_three, results, fields_three) => {
                 try {
                   console.log(username + " has saved a new place!\n");
-                  res.end();
+                  res.send(JSON.stringify(place_id));
                 }
                 catch (err_three) {
                   console.log("ERROR: " + username + " has an error in saving a place!\n");
@@ -250,18 +232,18 @@ app.post('/place', (req, res) => {
         });
       }
     });
-  }).catch(() => {
-    res.end();
-  });
 });
 
 // QUERY: Search for all the places the user saved
-app.post('/saved', (req, res) => {
+app.get('/place/:user_id/:username', (req, res) => {
 
-  const username = req.body.username.toLowerCase();
+  const user_id = req.params.user_id;
+
+  // TODO: Figure out how to retrieve someone's username without adding onto the JOIN query
+  const username = req.params.username;
 
   console.log("Running query...");
-  const query = 'SELECT Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + req.body.user_id + '";';
+  const query = 'SELECT Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
   console.log(query);
 
   connection.query(query, (err, savedPlaces, fields) => {
@@ -282,18 +264,47 @@ app.post('/saved', (req, res) => {
 });
 
 // QUERY: Update saved place
-app.post('/update', (req, res) => {
+app.put('/place', (req, res) => {
 
-  // Must check for sql injection because of caption
-
-  // result[0].Place_ID can be retrieved from 'SELECT * ...' query
-  const query = 'UPDATE User_Places SET User_Places_ID="' + req.body.user_id + '", Place_ID="' + 0 + '", Date_Record="' + req.body.date + '", Caption="' + req.body.caption + '" WHERE User_Places_ID="' + req.body.user_id + '" AND Place_ID="' + 0 + '";';
-  console.log(query);
+  let checkInjection = () => {
+    return new Promise((resolve, reject) => {
+      if (containsInjection(req.body.caption, "caption")) {
+        reject();
+      }
+      else {
+        resolve();
+      }
+    });
+  }
+  checkInjection().then(() => {
+    const username = req.body.username;
+    console.log("Running query...");
+    const query = 'UPDATE User_Places SET Date_Record="' + req.body.date + '", Caption="' + req.body.caption + '" WHERE User_Places_ID="' + req.body.user_id + '" AND Place_ID="' + req.body.place_id + '";';
+    console.log(query);
+    connection.query(query, (err, result, fields) => {
+      try {
+        if (err) throw err;
+        console.log(username + " has successfully updated a place.\n");
+        res.end();
+      }
+      catch (err) {
+        console.log("ERROR: " + username + " has an error in updating a place!\n");
+        res.end();
+      }
+    });
+  }).catch(() => {
+    // TODO: Flash message saying no special characters because of SQL injection
+    res.end();
+  });
 });
 
 // QUERY: Delete user account
 
 // QUERY: Delete place
+
+// QUERY: Retrieve all users
+
+// QUERY: Search for user's places
 
 /////////////////////////////////////////////////////////////////////
 // Start Application

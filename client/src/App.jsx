@@ -8,48 +8,38 @@ const DEFAULT_PLACE_QUERY = 'Search for a place in the map';
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      // DEV: Set default view to login
       view: "login",
       loggedIn: false,
       username: sessionStorage.getItem('username'),
       user_id: sessionStorage.getItem('user_id'),
       places: [],
       userSearched: '',
-      placeSearch: '',
+      search: '',
       mapFocus: [34.0407, -118.2468],
-      insertPlace: DEFAULT_PLACE_QUERY,
-      insertLat: 0,
-      insertLon: 0,
+      editPlace: DEFAULT_PLACE_QUERY,
+      editPlace_id: 0,
       mapZoom: 2
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
     this.placeSearch = this.placeSearch.bind(this);
-    this.potentialPlace = this.potentialPlace.bind(this);
+    this.editPlace = this.editPlace.bind(this);
     this.displaySavedPlaces = this.displaySavedPlaces.bind(this);
   }
 
   // Query that retrieves saved places
-  // TODO: Make new state with all saved places
   // This will be passed as a prop for the map to display
   displaySavedPlaces() {
-    console.log("Hello from App.jsx!");
-    fetch('/saved', {
+    fetch('/place/' + this.state.user_id + '/' + this.state.username, {
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      method: 'POST',
-      body: JSON.stringify({
-        user_id: this.state.user_id,
-        username: this.state.username
-      })
+      method: 'GET'
     })
       .then(res => res.json())
-      .then(places => {this.setState({ places: places })});
+      .then(places => {this.setState({ places: places})});
   }
 
   componentDidMount() {
@@ -107,24 +97,20 @@ class App extends Component {
   placeSearch(query) {
     if (query.length !== 0) {
       this.setState({
-        placeSearch: query,
+        search: query,
         mapFocus: [query[0].y, query[0].x],
         mapZoom: 10
       });
     }
     else {
-      this.setState({
-        placeSearch: '',
-      });
+      this.setState({search: ''});
     }
   }
 
-  potentialPlace(place) {
-    console.log(place);
+  editPlace(place, place_id) {
     this.setState({
-      insertPlace: place.label,
-      insertLat: place.y,
-      insertLon: place.x
+      editPlace: place.label,
+      editPlace_id: place_id
     });
   }
 
@@ -138,18 +124,22 @@ class App extends Component {
                    login={this.login} logout={this.logout}
                    register={this.register}
                    user_id={this.state.user_id}
-                   insertPlace={this.state.insertPlace}
-                   insertLat={this.state.insertLat}
-                   insertLon={this.state.insertLon}
                    placeSearch={this.placeSearch}
+                   search={this.state.search}
+                   editPlace={this.state.editPlace}
+                   editPlace_id={this.state.editPlace_id}
                    default_place_query={DEFAULT_PLACE_QUERY}
                    displaySavedPlaces={this.displaySavedPlaces}/>
         </div>
         <Maps mapFocus={this.state.mapFocus}
               mapZoom={this.state.mapZoom}
-              placeSearch={this.state.placeSearch}
-              potentialPlace={this.potentialPlace}
-              places={this.state.places}/>
+              username={this.state.username}
+              user_id={this.state.user_id}
+              placeSearch={this.placeSearch}
+              search={this.state.search}
+              editPlace={this.editPlace}
+              places={this.state.places}
+              displaySavedPlaces={this.displaySavedPlaces}/>
       </div>
     );
   }
