@@ -29,13 +29,19 @@ Document your travels and share with others.
 └── styles.css<br/>
 
 ### Needed Installments
+* FEATURE: Create initial map login screen of random places with
+  lines drawn between them in accordance to date - this will most
+  likely be my mapping of California - make it into SQL file
+* FEATURE: At logout, places should be set to default map screen
 * FEATURE: Generate paths/lines between each destination sorted by
-  date
+  date after place is updated
 * FEATURE: Button to delete place in sidebar + make this a DELETE
   HTTP method
 * FEATURE: Registration -- user accounts must have their passwords hashed;
   must flash messages if registering duplicate usernames and emails
   or info containing special characters
+* FEATURE: Have better view on mobile
+* FEATURE: Use a better authorization library
 * BUG: If entry gets deleted from database, then sessionStorage cache
   must be cleared immediately, otherwise this will cause bugs
   To replicate: Create account "ivan", then delete the "ivan"

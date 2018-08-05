@@ -59,8 +59,8 @@ textarea {
 
 /* Views - Account, Register, Login */
 .multiuse-button {
-    margin-top: calc(2px + 2vw);
-    margin-bottom: calc(2px + 2vw);
+    margin-top: calc(2px + 1vw);
+    margin-bottom: calc(2px + 1vw);
     width: 100%;
     height: calc(2vw + 2vh);
     background-color: ivory;

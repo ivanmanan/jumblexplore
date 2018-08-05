@@ -236,16 +236,11 @@ app.post('/place', (req, res) => {
 
 // QUERY: Search for all the places the user saved
 app.get('/place/:user_id/:username', (req, res) => {
-
   const user_id = req.params.user_id;
-
-  // TODO: Figure out how to retrieve someone's username without adding onto the JOIN query
   const username = req.params.username;
-
   console.log("Running query...");
   const query = 'SELECT User_Places.Place_ID, Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
   console.log(query);
-
   connection.query(query, (err, savedPlaces, fields) => {
     try {
       if (err) throw err;
@@ -265,7 +260,6 @@ app.get('/place/:user_id/:username', (req, res) => {
 
 // QUERY: Update saved place
 app.put('/place', (req, res) => {
-
   let checkInjection = () => {
     return new Promise((resolve, reject) => {
       if (containsInjection(req.body.caption, "caption")) {
@@ -298,9 +292,29 @@ app.put('/place', (req, res) => {
   });
 });
 
-// QUERY: Delete user account
-
 // QUERY: Delete place
+app.delete('/place', (req, res) => {
+  const username = req.body.username;
+  const user_id = req.body.user_id;
+  const place_id = req.body.place_id;
+  console.log("Running query...");
+  const query = 'DELETE FROM User_Places WHERE User_Places_ID="' + user_id + '" AND Place_ID="' + place_id + '";';
+  console.log(query);
+
+  connection.query(query, (err, result, fields) => {
+    try {
+      if (err) throw err;
+      console.log(username + " has successfully deleted a place from their account.\n");
+      res.end();
+    }
+    catch (err) {
+      console.log("ERROR: " + username + " has an error in updating a place!\n");
+      res.end();
+    }
+  });
+});
+
+// QUERY: Delete user account
 
 // QUERY: Retrieve all users
 

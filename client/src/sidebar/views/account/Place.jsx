@@ -7,6 +7,7 @@ class Place extends Component {
   constructor(props) {
     super(props);
     this.updatePlace = this.updatePlace.bind(this);
+    this.deletePlace = this.deletePlace.bind(this);
   }
 
   updatePlace(e) {
@@ -30,6 +31,9 @@ class Place extends Component {
         .then(() => {
           // Re-render the map with new saved places
           this.props.displaySavedPlaces();
+
+          // TODO: Call a function that sorts places by date and
+          //       draws a line between markers chronological
         });
 
     }
@@ -40,6 +44,32 @@ class Place extends Component {
     }
   }
 
+  deletePlace(e) {
+    e.preventDefault();
+    if (this.refs.new_place.value !== this.props.default_place_query) {
+      // Submit DELETE request
+      fetch('/place', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'DELETE',
+        body: JSON.stringify({
+          username: this.props.username,
+          user_id: this.props.user_id,
+          place_id: this.props.editPlace_id
+        })
+      })
+        .then(() => {
+          // Set Date/Caption/Query to default or empty
+          this.props.clearPlace();
+
+          // Re-render the map without deleted place
+          this.props.displaySavedPlaces();
+        });
+    }
+  }
+
   render() {
     return (
       <div className="Place">
@@ -47,7 +77,7 @@ class Place extends Component {
 
           <div className="Place-Field row">
             <div className={place_field_label}>
-              <h4>New Place</h4>
+              <h4>Place</h4>
             </div>
             <div className={place_field_input}>
 
@@ -83,8 +113,15 @@ class Place extends Component {
               </button>
             </div>
           </div>
-
         </form>
+        <div className="row">
+          <div className={this.props.central_button}>
+            <button className="multiuse-button"
+                    onClick={this.deletePlace}>
+              <p>Delete Place</p>
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

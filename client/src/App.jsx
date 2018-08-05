@@ -28,6 +28,7 @@ class App extends Component {
     this.register = this.register.bind(this);
     this.placeSearch = this.placeSearch.bind(this);
     this.editPlace = this.editPlace.bind(this);
+    this.clearPlace = this.clearPlace.bind(this);
     this.displaySavedPlaces = this.displaySavedPlaces.bind(this);
   }
 
@@ -118,6 +119,13 @@ class App extends Component {
     });
   }
 
+  clearPlace() {
+    this.editPlace(DEFAULT_PLACE_QUERY, 0, '', '');
+  }
+
+  // TODO: Add an if-else statement in the <Maps> portion
+  // whether login or not -- if not logged in, then render
+  // a sample maps screen
   render() {
     return (
       <div className="App">
@@ -134,6 +142,7 @@ class App extends Component {
                    editPlace_id={this.state.editPlace_id}
                    editDate={this.state.editDate}
                    editCaption={this.state.editCaption}
+                   clearPlace={this.clearPlace}
                    default_place_query={DEFAULT_PLACE_QUERY}
                    displaySavedPlaces={this.displaySavedPlaces}/>
         </div>

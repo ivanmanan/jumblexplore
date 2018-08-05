@@ -29,6 +29,7 @@ class View extends Component {
                    editDate={this.props.editDate}
                    editCaption={this.props.editCaption}
                    search={this.props.search}
+                   clearPlace={this.props.clearPlace}
                    default_place_query={this.props.default_place_query}
                    displaySavedPlaces={this.props.displaySavedPlaces}
                    revealSidebar={this.props.revealSidebar}/>
