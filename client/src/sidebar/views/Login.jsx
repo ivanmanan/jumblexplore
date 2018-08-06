@@ -31,10 +31,17 @@ class Login extends Component {
 
         // If login was successful
         if (this.state.userLogin[0]) {
-          sessionStorage.setItem('loggedIn', true);
-          sessionStorage.setItem('username', this.state.userLogin[0].username);
-          sessionStorage.setItem('user_id', this.state.userLogin[0].user_id);
-          this.props.login();
+          let saveLogin = () => {
+            return new Promise((resolve, reject) => {
+              sessionStorage.setItem('loggedIn', true);
+              sessionStorage.setItem('username', this.state.userLogin[0].username);
+              sessionStorage.setItem('user_id', this.state.userLogin[0].user_id);
+              resolve();
+            });
+          }
+          saveLogin().then(() => {
+            this.props.login();
+          });
         }
         else { // If login failed
           // Render invalid message above login button

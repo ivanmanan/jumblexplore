@@ -35,21 +35,15 @@ Document your travels and share with others.
 * FEATURE: At logout, places should be set to default map screen
 * FEATURE: Generate paths/lines between each destination sorted by
   date after place is updated
-* FEATURE: Button to delete place in sidebar + make this a DELETE
-  HTTP method
 * FEATURE: Registration -- user accounts must have their passwords hashed;
   must flash messages if registering duplicate usernames and emails
   or info containing special characters
 * FEATURE: Have better view on mobile
-* FEATURE: Use a better authorization library
 * BUG: If entry gets deleted from database, then sessionStorage cache
   must be cleared immediately, otherwise this will cause bugs
   To replicate: Create account "ivan", then delete the "ivan"
   account from the database, and refresh the browser - "ivan" will
-  still exist. Maybe I need another authorization
-* BUG: When user logs out, and then creates a new account, query runs
-  from previous user account instead of the new account after
-  registration. Need to fix logout or use different authorization setting
+  still exist
 * Configure raspberry pi with the default script to host the project
   when it gets turned on - must use optimized React package
 * BUG: When user searches for a place that has already been saved, it

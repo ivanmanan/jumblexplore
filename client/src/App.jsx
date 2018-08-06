@@ -13,7 +13,7 @@ class App extends Component {
       loggedIn: false,
       username: sessionStorage.getItem('username'),
       user_id: sessionStorage.getItem('user_id'),
-      places: [],
+      places: [], // TODO: Componentdidmount display places with my screen
       userSearched: '',
       search: '',
       mapFocus: [34.0407, -118.2468],
@@ -66,21 +66,24 @@ class App extends Component {
   }
 
   login() {
-    // Retrieve saved places from database
-    this.displaySavedPlaces();
-
     this.setState({
       view: "account",
       loggedIn: sessionStorage.getItem('loggedIn'),
       username: sessionStorage.getItem('username'),
       user_id: sessionStorage.getItem('user_id')
+    }, () => {
+      // Retrieve saved places from database
+      this.displaySavedPlaces();
     });
   }
 
   logout() {
     this.setState({
       view: 'login',
-      loggedIn: false
+      loggedIn: false,
+      username: '',
+      user_id: 0,
+      places: [] // TODO: Display places with my screen
     })
     sessionStorage.setItem('loggedIn', false);
     sessionStorage.setItem('username', '');
