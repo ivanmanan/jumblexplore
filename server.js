@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const debug = require('./debug');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 /////////////////////////////////////////////////////////////////////
 // Configurations
