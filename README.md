@@ -123,3 +123,12 @@ There can be duplicate User_Places_ID's, but multiple Place_ID's.
    ```bash
    npm start
    ```
+
+7. When hosting via Digital Ocean or cloud server, have `pm2` installed to run the 
+   Node.js application in the background. Then use this command instead of step 6.
+   ```bash
+   cd /path/to/travel-share/client/
+   npm run build
+   cd ..
+   npm run server
+   ```
