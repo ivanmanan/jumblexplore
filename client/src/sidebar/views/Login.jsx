@@ -71,6 +71,15 @@ class Login extends Component {
             </div>
           </div>
           <div className="row">
+            <div className={this.props.field_label}>
+            </div>
+            <div className={this.props.field_input}>
+              <div className="text-center">
+                <h2>Login here to document your travels!</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">
             <div className={this.props.button_box}>
               <button className="multiuse-button">
                 <p>Login</p>

@@ -8,6 +8,24 @@ class Place extends Component {
     super(props);
     this.updatePlace = this.updatePlace.bind(this);
     this.deletePlace = this.deletePlace.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleCaptionChange = this.handleCaptionChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      editDate: this.props.editDate,
+      editCaption: this.props.editCaption
+    });
+    console.log(this.props.editDate);
+  }
+
+  handleDateChange(e) {
+    this.props.updateDate(e.target.value);
+  }
+
+  handleCaptionChange(e) {
+    this.props.updateCaption(e.target.value);
   }
 
   updatePlace(e) {
@@ -92,7 +110,9 @@ class Place extends Component {
               <h4>Date</h4>
             </div>
             <div className={place_field_input}>
-              <input type="date" ref="new_date" value={this.props.editDate}/>
+              <input type="date" ref="new_date"
+                     value={this.props.editDate}
+                     onChange={this.handleDateChange}/>
             </div>
           </div>
 
@@ -102,7 +122,9 @@ class Place extends Component {
             </div>
             <div className={place_field_input}>
               <textarea id="New-Details" ref="new_caption" rows={2}
-                        maxLength={144} value={this.props.editCaption}/>
+                        maxLength={144}
+                        onChange={this.handleCaptionChange}
+                        value={this.props.editCaption}/>
             </div>
           </div>
 

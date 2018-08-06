@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const debug = require('./debug');
+const bcrypt = require('bcrypt');
 
 /////////////////////////////////////////////////////////////////////
 // Configurations
@@ -61,9 +62,7 @@ function containsInjection(input, type) {
 
 // QUERY: Verify login credentials
 app.post('/login', (req, res) => {
-
   let userinfo = [];
-
   let checkInjection = () => {
     return new Promise((resolve, reject) => {
       if (containsInjection(req.body.username, "regular") ||
@@ -78,30 +77,42 @@ app.post('/login', (req, res) => {
   checkInjection().then(() => {
     console.log("Running query...");
     const username = req.body.username.toLowerCase();
-
-    const query_one = 'SELECT * FROM User_Login WHERE Username="' + username + '" and Password="' + req.body.password + '";';
+    const query_one = 'SELECT * FROM User_Login WHERE Username="' + username + '";';
     console.log(query_one);
-
     connection.query(query_one, (err, result, fields) => {
-      if (err) throw err;
-      else {
-        // Check if one entry in SQL database shows up correctly
-        if(Object.keys(result).length === 0) {
-          console.log("Invalid username or password entered for: " +
-                      username + ".\n");
+      try {
+        if (err) throw err;
+        if (Object.keys(result).length === 0) {
+          console.log("Username does not exist: " + username + ".\n");
           res.contentType('application/json');
           res.send(JSON.stringify(userinfo));
         }
         else {
-          console.log(result[0].Username + " has logged in.\n");
-          userinfo.push({
-            username: result[0].Username,
-            password: result[0].Password,
-            user_id: result[0].User_ID
+          // Check password is correct
+          bcrypt.compare(req.body.password, result[0].Password, (err_pass, validated) => {
+            if (validated) {
+              console.log(result[0].Username + " has logged in.\n");
+              userinfo.push({
+                username: result[0].Username,
+                password: result[0].Password,
+                user_id: result[0].User_ID
+              });
+              res.contentType('application/json');
+              res.send(JSON.stringify(userinfo));
+
+            }
+            else {
+              console.log("Incorrect password was entered for: " + username + ".\n");
+              res.contentType('application/json');
+              res.send(JSON.stringify(userinfo));
+            }
           });
-          res.contentType('application/json');
-          res.send(JSON.stringify(userinfo));
         }
+      }
+      catch(err) {
+        console.log("Do nothing.\n");
+        res.contentType('application/json');
+        res.send(JSON.stringify(userinfo));
       }
     });
   }).catch(() => {
@@ -111,7 +122,6 @@ app.post('/login', (req, res) => {
 });
 
 // QUERY: Registration
-// TODO: Need to hash passwords here
 app.post('/register', (req, res) => {
 
   console.log("Running query...");
@@ -130,35 +140,42 @@ app.post('/register', (req, res) => {
   }
 
   checkInjection().then(() => {
-    const username = req.body.username.toLowerCase();
-    const query_one = 'INSERT INTO User_Login (Username, Email, Password) VALUES ("' + username + '", "' + req.body.email + '", "' + req.body.password + '");';
-    console.log(query_one);
-    connection.query(query_one, (err, response, fields) => {
-      try {
-        if (err) throw err;
-        else {
-          console.log(username + " has registered an account.\n");
-          const query_two = 'SELECT * FROM User_Login WHERE Username="' + username + '" and Password="' + req.body.password + '";';
-          console.log(query_two);
-          connection.query(query_two, (err, result, fields) => {
-            if (err) throw err;
-            else {
-              userinfo.push({
-                username: result[0].Username,
-                password: result[0].Password,
-                user_id: result[0].User_ID
-              });
-              res.contentType('application/json');
-              res.send(JSON.stringify(userinfo));
-            }
-          });
+    bcrypt.hash(req.body.password, 10, (err_pass, hash) => {
+      const username = req.body.username.toLowerCase();
+      const query_one = 'INSERT INTO User_Login (Username, Email, Password) VALUES ("' + username + '", "' + req.body.email + '", "' + hash + '");';
+      console.log(query_one);
+      connection.query(query_one, (err, response, fields) => {
+        try {
+          if (err) throw err;
+          else {
+            console.log(username + " has registered an account.\n");
+            const query_two = 'SELECT * FROM User_Login WHERE Username="' + username + '" and Password="' + hash + '";';
+            console.log(query_two);
+            connection.query(query_two, (err_login, result, fields) => {
+              try {
+              if (err_login) throw err_login;
+              else {
+                userinfo.push({
+                  username: result[0].Username,
+                  password: result[0].Password,
+                  user_id: result[0].User_ID
+                });
+                res.contentType('application/json');
+                res.send(JSON.stringify(userinfo));
+              }
+              }
+              catch (err_login) {
+                console.log("Do nothing.\n");
+              }
+            });
+          }
         }
-      }
-      catch (err) {
-        console.log("The username or email '" + username + "' attempting to register already exists in the database.")
-        res.contentType('application/json');
-        res.send(JSON.stringify(userinfo));
-      }
+        catch (err) {
+          console.log("The username or email '" + username + "' attempting to register already exists in the database.")
+          res.contentType('application/json');
+          res.send(JSON.stringify(userinfo));
+        }
+      });
     });
   }).catch(() => {
     res.contentType('application/json');

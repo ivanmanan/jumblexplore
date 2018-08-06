@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup, ZoomControl } from './react-leaflet';
+import { Map, TileLayer, Marker, Popup, ZoomControl, Polyline } from './react-leaflet';
 
 class Maps extends Component {
   constructor(props) {
     super(props);
     this.displayPlacesSearched = this.displayPlacesSearched.bind(this);
     this.displayPlacesSaved = this.displayPlacesSaved.bind(this);
+    this.displayPath = this.displayPath.bind(this);
     this.savePlace = this.savePlace.bind(this);
     this.updatePlace = this.updatePlace.bind(this);
     this.loggedInUser = this.loggedInUser.bind(this);
@@ -79,28 +80,55 @@ class Maps extends Component {
   // Queried from database
   // Retrieved from App.jsx
   displayPlacesSaved() {
-    if (this.props.places.length !== 0) {
-      const places = this.props.places;
-      return places.map((place, id) => (
-        <Marker key={id} position={[place.Latitude, place.Longitude]}>
-          <Popup>
-            <span>
-              {place.Place}
-              <div className="text-center">
-                <p>
-                  {place.Date_Record}
-                  <br/>
-                  {place.Caption}
-                </p>
-                <button id="place-button"
-                        onClick={() => this.updatePlace(place)}>
-                  <p>Update Place</p>
-                </button>
-              </div>
-            </span>
-          </Popup>
-        </Marker>
-      ));
+    const loggedIn = sessionStorage.getItem('loggedIn');
+    const places = this.props.places;
+    return places.map((place, id) => (
+      <Marker key={id} position={[place.Latitude, place.Longitude]}>
+        <Popup>
+          <span>
+            {place.Place}
+            <div className="text-center">
+              <p>
+                {place.Date_Record}
+                <br/>
+                {place.Caption}
+              </p>
+              {loggedIn &&
+                 <button id="place-button"
+                         onClick={() => this.updatePlace(place)}>
+                   <p>Update Place</p>
+                 </button>
+              }
+            </div>
+          </span>
+        </Popup>
+      </Marker>
+    ));
+  }
+
+  displayPath() {
+    const places = this.props.places;
+    let places_with_dates = [];
+    let polyline = [];
+    places.forEach((place) => {
+      if (place.Date_Record) {
+        places_with_dates.push(place);
+      }
+    });
+
+    // Sort places by dates
+    let sorted_places = places_with_dates.sort((a, b) => new Date(b.Date_Record) - new Date(a.Date_Record)).reverse();
+
+    if (sorted_places.length > 1 ) {
+      sorted_places.forEach((place) => {
+        polyline.push([place.Latitude, place.Longitude]);
+      });
+      return (
+        <Polyline color="lime" positions={polyline}/>
+      );
+    }
+    else {
+      return (null);
     }
   }
 
@@ -112,8 +140,7 @@ class Maps extends Component {
           <TileLayer
             attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-            noWrap={false}
-          />
+            noWrap={false}/>
           <ZoomControl position="topright"/>
 
           <div>
@@ -122,7 +149,9 @@ class Maps extends Component {
           <div>
             {this.displayPlacesSaved()}
           </div>
-
+          <div>
+            {this.displayPath()}
+          </div>
         </Map>
       </div>
     );

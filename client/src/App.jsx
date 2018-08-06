@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Sidebar from './sidebar/Sidebar';
 import Maps from './map/Maps';
 
@@ -13,20 +14,22 @@ class App extends Component {
       loggedIn: false,
       username: sessionStorage.getItem('username'),
       user_id: sessionStorage.getItem('user_id'),
-      places: [], // TODO: Componentdidmount display places with my screen
+      places: [],
       userSearched: '',
       search: '',
-      mapFocus: [34.0407, -118.2468],
+      mapFocus: [37.682056, -121.768051],
       editPlace: DEFAULT_PLACE_QUERY,
       editPlace_id: 0,
       editDate: '',
       editCaption: '',
-      mapZoom: 2
+      mapZoom: 6
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
     this.placeSearch = this.placeSearch.bind(this);
+    this.updateCaption = this.updateCaption.bind(this);
+    this.updateDate = this.updateDate.bind(this);
     this.editPlace = this.editPlace.bind(this);
     this.clearPlace = this.clearPlace.bind(this);
     this.displaySavedPlaces = this.displaySavedPlaces.bind(this);
@@ -60,7 +63,11 @@ class App extends Component {
     else { // Otherwise, render Login component
       this.setState({
         view: "login", // DEV: Set this to login
-        loggedIn: false
+        loggedIn: false,
+        username: 'ivan',
+        user_id: 1
+      }, () => {
+        this.displaySavedPlaces();
       });
     }
   }
@@ -81,10 +88,11 @@ class App extends Component {
     this.setState({
       view: 'login',
       loggedIn: false,
-      username: '',
-      user_id: 0,
-      places: [] // TODO: Display places with my screen
-    })
+      username: 'ivan',
+      user_id: 1
+    }, () => {
+      this.displaySavedPlaces();
+    });
     sessionStorage.setItem('loggedIn', false);
     sessionStorage.setItem('username', '');
     sessionStorage.setItem('user_id', 0);
@@ -97,9 +105,6 @@ class App extends Component {
     });
   }
 
-  // Searchbar.jsx -> App.jsx
-  // Place.jsx     -> App.jsx
-  // App.jsx       -> Maps.jsx
   placeSearch(query) {
     if (query.length !== 0) {
       this.setState({
@@ -111,6 +116,14 @@ class App extends Component {
     else {
       this.setState({search: ''});
     }
+  }
+
+  updateDate(date) {
+    this.setState({editDate: date});
+  }
+
+  updateCaption(caption) {
+    this.setState({editCaption: caption});
   }
 
   editPlace(place_name, place_id, date, caption) {
@@ -126,9 +139,6 @@ class App extends Component {
     this.editPlace(DEFAULT_PLACE_QUERY, 0, '', '');
   }
 
-  // TODO: Add an if-else statement in the <Maps> portion
-  // whether login or not -- if not logged in, then render
-  // a sample maps screen
   render() {
     return (
       <div className="App">
@@ -145,6 +155,8 @@ class App extends Component {
                    editPlace_id={this.state.editPlace_id}
                    editDate={this.state.editDate}
                    editCaption={this.state.editCaption}
+                   updateDate={this.updateDate}
+                   updateCaption={this.updateCaption}
                    clearPlace={this.clearPlace}
                    default_place_query={DEFAULT_PLACE_QUERY}
                    displaySavedPlaces={this.displaySavedPlaces}/>

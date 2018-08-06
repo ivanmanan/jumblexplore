@@ -28,6 +28,8 @@ class View extends Component {
                    editPlace_id={this.props.editPlace_id}
                    editDate={this.props.editDate}
                    editCaption={this.props.editCaption}
+                   updateDate={this.props.updateDate}
+                   updateCaption={this.props.updateCaption}
                    search={this.props.search}
                    clearPlace={this.props.clearPlace}
                    default_place_query={this.props.default_place_query}
