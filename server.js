@@ -255,7 +255,6 @@ app.post('/place', (req, res) => {
 app.get('/place/:user_id/:username', (req, res) => {
   const user_id = req.params.user_id;
   const username = req.params.username;
-
   const query = 'SELECT User_Places.Place_ID, Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
 
   // If username is not default, then display time the website was visited
@@ -263,7 +262,10 @@ app.get('/place/:user_id/:username', (req, res) => {
     // Get time in Pacific Standard Time
     const moment = require('moment-timezone');
     let time = moment().tz("America/Los_Angeles").format('MM-DD-YYYY HH:mm');
-    console.log("Someone visited the website on:", time, "\n");
+    console.log("Someone visited the website on:", time);
+    // Display IP address
+    // This is to distinguish the developer who visited the website
+    console.log("IP Adress of visitor: ", req.ip.split(":").pop(), "\n");
   }
   // Otherwise, print out the query
   else {
