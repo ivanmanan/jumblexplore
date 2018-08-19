@@ -255,13 +255,27 @@ app.post('/place', (req, res) => {
 app.get('/place/:user_id/:username', (req, res) => {
   const user_id = req.params.user_id;
   const username = req.params.username;
-  console.log("Running query...");
+
   const query = 'SELECT User_Places.Place_ID, Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
-  console.log(query);
+
+  // If username is not default, then display time the website was visited
+  if (username == "ivan") {
+    // Get time in Pacific Standard Time
+    const moment = require('moment-timezone');
+    let time = moment().tz("America/Los_Angeles").format('MM-DD-YYYY HH:mm');
+    console.log("Someone visited the website on:", time, "\n");
+  }
+  // Otherwise, print out the query
+  else {
+    console.log("Running query...");
+    console.log(query);
+  }
   connection.query(query, (err, savedPlaces, fields) => {
     try {
       if (err) throw err;
-      console.log(username + " has retrieved all saved places!\n");
+      if (username != "ivan") {
+        console.log(username + " has retrieved all saved places!\n");
+      }
       res.contentType('application/json');
       res.send(JSON.stringify(savedPlaces));
     }
