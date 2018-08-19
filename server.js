@@ -265,7 +265,7 @@ app.get('/place/:user_id/:username', (req, res) => {
     console.log("Someone visited the website on:", time);
     // Display IP address
     // This is to distinguish the developer who visited the website
-    console.log("IP Adress of visitor: ", req.ip.split(":").pop(), "\n");
+    console.log("IP Adress of visitor:", req.ip.split(":").pop(), "\n");
   }
   // Otherwise, print out the query
   else {
