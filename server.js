@@ -258,7 +258,7 @@ app.get('/place/:user_id/:username', (req, res) => {
   const query = 'SELECT User_Places.Place_ID, Place, Latitude, Longitude, Date_Record, Caption FROM User_Places JOIN Places ON User_Places.Place_ID = Places.Place_ID WHERE User_Places_ID="' + user_id + '";';
 
   // If username is not default, then display time the website was visited
-  if (username == "ivan") {
+  if (username != "ivan") {
     // Get time in Pacific Standard Time
     const moment = require('moment-timezone');
     let time = moment().tz("America/Los_Angeles").format('MM-DD-YYYY HH:mm');
